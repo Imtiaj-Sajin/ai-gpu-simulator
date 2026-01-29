@@ -1,3 +1,4 @@
+// src\lib\sim\randomText.ts
 const WORDS = [
   "token",
   "stream",
@@ -24,6 +25,10 @@ const WORDS = [
   "profile",
   "queue",
   "model",
+  "gpu",
+  "vram",
+  "core",
+  "Hi there!",
 ];
 
 export function randomWords(count: number): string {

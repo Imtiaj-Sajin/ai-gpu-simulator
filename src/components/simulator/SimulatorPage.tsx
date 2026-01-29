@@ -1,9 +1,7 @@
-// src\components\simulator\SimulatorPage.tsx
 import { useEffect, useMemo, useRef, useState } from "react";
-import { GPU_SPECS, MODEL_SPECS, type GpuTier, type ModelFamily } from "@/data/simulatorDataset";
+import { GPU_SPECS, MODEL_SPECS, BENCHMARKS, type GpuTier, type ModelFamily } from "@/data/simulatorDataset";
 import { estimatePerformance, type Precision, type WorkloadMode } from "@/lib/sim/estimator";
 import { randomWords } from "@/lib/sim/randomText";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -14,37 +12,26 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 type RunState = "idle" | "prefill" | "streaming" | "done";
-
 const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
-
 function familyLabel(f: ModelFamily) {
   switch (f) {
-    case "llama":
-      return "Llama";
-    case "mistral":
-      return "Mistral / Mixtral";
-    case "qwen":
-      return "Qwen2.5";
-    case "deepseek":
-      return "DeepSeek";
-    default:
-      return "Other";
+    case "llama": return "Llama";
+    case "mistral": return "Mistral / Mixtral";
+    case "qwen": return "Qwen2.5";
+    case "deepseek": return "DeepSeek";
+    default: return "Other";
   }
 }
-
 function tierLabel(t: GpuTier) {
   switch (t) {
-    case "consumer":
-      return "Consumer";
-    case "workstation":
-      return "Workstation";
-    case "datacenter":
-      return "Datacenter";
+    case "consumer": return "Consumer";
+    case "workstation": return "Workstation";
+    case "datacenter": return "Datacenter";
   }
 }
-
 function formatSeconds(s: number) {
   if (!Number.isFinite(s)) return "–";
   if (s < 1) return `${s.toFixed(2)}s`;
@@ -53,70 +40,60 @@ function formatSeconds(s: number) {
   const r = s - m * 60;
   return `${m}m ${r.toFixed(0)}s`;
 }
-
 function confBadge(conf: "high" | "medium" | "low") {
   if (conf === "high") return { variant: "default" as const, text: "High" };
   if (conf === "medium") return { variant: "secondary" as const, text: "Medium" };
   return { variant: "outline" as const, text: "Low" };
 }
-
 export default function SimulatorPage() {
   const [gpuId, setGpuId] = useState<string>("rtx-4090");
   const [modelId, setModelId] = useState<string>("llama-3-1-8b");
   const [inputTokens, setInputTokens] = useState<number>(512);
   const [outputTokens, setOutputTokens] = useState<number>(256);
-
   const [context, setContext] = useState<number>(4096);
   const [precision, setPrecision] = useState<Precision>("fp16");
   const [throughputMode, setThroughputMode] = useState<boolean>(false);
   const [batchSize, setBatchSize] = useState<number>(1);
   const [concurrency, setConcurrency] = useState<number>(1);
-
   const mode: WorkloadMode = throughputMode ? "throughput" : "single";
-
   useEffect(() => {
     if (!throughputMode) {
       setBatchSize(1);
       setConcurrency(1);
     }
   }, [throughputMode]);
-
   const estimate = useMemo(() => {
-    const p = throughputMode ? precision : precision; // placeholder: same field either way
     return estimatePerformance({
       gpuId,
       modelId,
       inputTokens,
       outputTokens,
       context,
-      precision: p,
+      precision,
       mode,
       batchSize: throughputMode ? batchSize : 1,
       concurrency: throughputMode ? concurrency : 1,
     });
   }, [gpuId, modelId, inputTokens, outputTokens, context, precision, mode, batchSize, concurrency, throughputMode]);
+  // Show FP8/INT4 if supported (datacenter/workstation tiers)
+  const gpu = GPU_SPECS.find(g => g.id === gpuId);
 
-  // If user picks INT8 but we have no INT8 datapoint, we still allow it but keep confidence low.
-  const showInt8 = true;
-
+  const showLowPrecision = gpu.tier === "datacenter" || gpu.tier === "workstation";
   const [runState, setRunState] = useState<RunState>("idle");
   const [generatedTokens, setGeneratedTokens] = useState<number>(0);
   const [consoleText, setConsoleText] = useState<string>("");
-
   const prefillTimerRef = useRef<number | null>(null);
   const tickTimerRef = useRef<number | null>(null);
   const runStartRef = useRef<number>(0);
   const streamStartRef = useRef<number>(0);
   const lastTickRef = useRef<number>(0);
   const emittedRef = useRef<number>(0);
-
   const resetTimers = () => {
     if (prefillTimerRef.current) window.clearTimeout(prefillTimerRef.current);
     if (tickTimerRef.current) window.clearInterval(tickTimerRef.current);
     prefillTimerRef.current = null;
     tickTimerRef.current = null;
   };
-
   const handleReset = () => {
     resetTimers();
     setRunState("idle");
@@ -124,68 +101,55 @@ export default function SimulatorPage() {
     setConsoleText("");
     emittedRef.current = 0;
   };
-
   const handleStop = () => {
     resetTimers();
     setRunState((s) => (s === "idle" ? "idle" : "done"));
   };
-
   const startStreaming = () => {
     setRunState("streaming");
     streamStartRef.current = performance.now();
     lastTickRef.current = streamStartRef.current;
     emittedRef.current = 0;
     setGeneratedTokens(0);
-
     const tickMs = 60;
     tickTimerRef.current = window.setInterval(() => {
       const now = performance.now();
       const elapsedS = (now - streamStartRef.current) / 1000;
       const target = Math.min(outputTokens, Math.floor(elapsedS * estimate.decodeTps));
       const toEmit = Math.max(0, target - emittedRef.current);
-
       if (toEmit > 0) {
         emittedRef.current += toEmit;
         setGeneratedTokens(emittedRef.current);
-        // 1 word ~= 1 token for this fake stream.
         setConsoleText((prev) => {
           const nextChunk = randomWords(Math.min(toEmit, 24));
           const next = prev ? `${prev} ${nextChunk}` : nextChunk;
-          // Keep console bounded.
           return next.length > 5000 ? next.slice(next.length - 5000) : next;
         });
       }
-
       if (emittedRef.current >= outputTokens) {
         resetTimers();
         setRunState("done");
       }
-
       lastTickRef.current = now;
     }, tickMs);
   };
-
   const handleStart = () => {
     handleReset();
     setRunState("prefill");
     setConsoleText("processing prompt…");
     runStartRef.current = performance.now();
-
     const ttftMs = Math.max(0, Math.round(estimate.ttftSeconds * 1000));
     prefillTimerRef.current = window.setTimeout(() => {
       setConsoleText("");
       startStreaming();
     }, ttftMs);
   };
-
   useEffect(() => () => resetTimers(), []);
-
   const gpusByTier = useMemo(() => {
     const map: Record<GpuTier, typeof GPU_SPECS> = { consumer: [], workstation: [], datacenter: [] };
     for (const g of GPU_SPECS) map[g.tier].push(g);
     return map;
   }, []);
-
   const modelsByFamily = useMemo(() => {
     const map: Record<ModelFamily, typeof MODEL_SPECS> = {
       llama: [],
@@ -197,10 +161,10 @@ export default function SimulatorPage() {
     for (const m of MODEL_SPECS) map[m.family].push(m);
     return map;
   }, []);
-
   const conf = confBadge(estimate.confidence);
   const progress = outputTokens > 0 ? (generatedTokens / outputTokens) * 100 : 0;
-
+  const model = MODEL_SPECS.find(m => m.id === modelId);
+  const matchingBenchmarks = BENCHMARKS.filter(b => b.gpuId === gpuId && b.modelId === modelId);
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b">
@@ -211,7 +175,6 @@ export default function SimulatorPage() {
           </p>
         </div>
       </header>
-
       <main className="mx-auto grid max-w-6xl gap-4 px-4 py-6 lg:grid-cols-[420px_1fr]">
         {/* Controls */}
         <section className="space-y-4">
@@ -243,7 +206,6 @@ export default function SimulatorPage() {
                   </SelectContent>
                 </Select>
               </div>
-
               <div className="space-y-2">
                 <Label>Model</Label>
                 <Select value={modelId} onValueChange={setModelId}>
@@ -266,7 +228,6 @@ export default function SimulatorPage() {
                   </SelectContent>
                 </Select>
               </div>
-
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="inputTokens">Input tokens</Label>
@@ -291,7 +252,6 @@ export default function SimulatorPage() {
                   />
                 </div>
               </div>
-
               <Collapsible>
                 <div className="flex items-center justify-between">
                   <div>
@@ -302,7 +262,6 @@ export default function SimulatorPage() {
                     <Button variant="outline" size="sm">Toggle</Button>
                   </CollapsibleTrigger>
                 </div>
-
                 <CollapsibleContent className="mt-4 space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="context">Context length (tokens)</Label>
@@ -315,7 +274,6 @@ export default function SimulatorPage() {
                       onChange={(e) => setContext(Number(e.target.value))}
                     />
                   </div>
-
                   <div className="flex items-center justify-between gap-3 rounded-md border p-3">
                     <div>
                       <div className="text-sm font-medium">Throughput mode</div>
@@ -323,7 +281,6 @@ export default function SimulatorPage() {
                     </div>
                     <Switch checked={throughputMode} onCheckedChange={setThroughputMode} />
                   </div>
-
                   {throughputMode && (
                     <div className="grid grid-cols-2 gap-3">
                       <div className="space-y-2">
@@ -350,7 +307,6 @@ export default function SimulatorPage() {
                       </div>
                     </div>
                   )}
-
                   <div className="space-y-2">
                     <Label>Precision</Label>
                     <Select value={precision} onValueChange={(v) => setPrecision(v as Precision)}>
@@ -359,14 +315,15 @@ export default function SimulatorPage() {
                       </SelectTrigger>
                       <SelectContent className="z-50">
                         <SelectItem value="fp16">FP16 / BF16</SelectItem>
-                        {showInt8 && <SelectItem value="int8">INT8</SelectItem>}
+                        <SelectItem value="int8">INT8</SelectItem>
+                        {showLowPrecision && <SelectItem value="fp8">FP8</SelectItem>}
+                        {showLowPrecision && <SelectItem value="int4">INT4</SelectItem>}
                       </SelectContent>
                     </Select>
-                    <p className="text-xs text-muted-foreground">Default FP16; INT8 is shown when available/usable.</p>
+                    <p className="text-xs text-muted-foreground">Lower precision shown for datacenter/workstation GPUs.</p>
                   </div>
                 </CollapsibleContent>
               </Collapsible>
-
               <div className="grid grid-cols-3 gap-2">
                 <Button onClick={handleStart} disabled={runState === "prefill" || runState === "streaming"}>
                   Start
@@ -380,7 +337,6 @@ export default function SimulatorPage() {
               </div>
             </CardContent>
           </Card>
-
           <Card>
             <CardHeader>
               <CardTitle>Fixed PC baseline</CardTitle>
@@ -401,7 +357,6 @@ export default function SimulatorPage() {
             </CardContent>
           </Card>
         </section>
-
         {/* Results */}
         <section className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
@@ -415,7 +370,6 @@ export default function SimulatorPage() {
                 <div className="mt-2 text-xs text-muted-foreground">Prefill: {estimate.prefillTps.toFixed(0)} tok/s</div>
               </CardContent>
             </Card>
-
             <Card>
               <CardHeader>
                 <CardTitle className="text-base">Decode speed</CardTitle>
@@ -430,7 +384,6 @@ export default function SimulatorPage() {
               </CardContent>
             </Card>
           </div>
-
           <Card>
             <CardHeader>
               <div className="flex items-start justify-between gap-3">
@@ -462,14 +415,12 @@ export default function SimulatorPage() {
                 </div>
                 <Progress value={clamp(progress, 0, 100)} />
               </div>
-
               <div className="rounded-md border bg-card p-3">
                 <div className="mb-2 text-xs font-medium text-muted-foreground">Live output</div>
                 <div className="h-[240px] overflow-auto whitespace-pre-wrap break-words font-mono text-xs leading-relaxed text-foreground">
                   {consoleText || "(press Start to simulate streaming output)"}
                 </div>
               </div>
-
               <div className="text-xs text-muted-foreground">
                 <div className="font-medium text-foreground">Assumptions</div>
                 <div className="mt-1">{estimate.rationale}</div>
@@ -477,6 +428,116 @@ export default function SimulatorPage() {
                   This is a simulation based on public benchmarks + estimation. Real results vary by framework, quantization,
                   KV-cache, drivers, and prompt shape.
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+          {/* New Section: Data Sources & Benchmarks */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Data Sources & Benchmarks</CardTitle>
+              <CardDescription>Hovered items show citations/sources. Based on selected GPU/model.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold mb-2">GPU Specs: {gpu?.name}</h3>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Spec</TableHead>
+                      <TableHead>Value</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>VRAM</TableCell>
+                      <TableCell>{gpu?.vramGB} GB</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Bandwidth</TableCell>
+                      <TableCell>{gpu?.memoryBandwidthGBs} GB/s</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>FP16 TFLOPS</TableCell>
+                      <TableCell>{gpu?.fp16Tflops}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Sources</TableCell>
+                      <TableCell>
+                        {gpu?.sources?.map((s, i) => (
+                          <span key={i} title={`${s.label} (${s.date || 'N/A'}): ${s.url}`} className="cursor-help underline mr-2">
+                            Source {i+1}
+                          </span>
+                        ))}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Model Specs: {model?.name}</h3>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Spec</TableHead>
+                      <TableHead>Value</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Params</TableCell>
+                      <TableCell>{model?.paramsB}B</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Default Context</TableCell>
+                      <TableCell>{model?.defaultContext}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Sources</TableCell>
+                      <TableCell>
+                        {model?.sources?.map((s, i) => (
+                          <span key={i} title={`${s.label} (${s.date || 'N/A'}): ${s.url}`} className="cursor-help underline mr-2">
+                            Source {i+1}
+                          </span>
+                        ))}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Matching Benchmarks ({matchingBenchmarks.length})</h3>
+                {matchingBenchmarks.length > 0 ? (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Context</TableHead>
+                        <TableHead>Precision</TableHead>
+                        <TableHead>Mode</TableHead>
+                        <TableHead>Batch/Conc</TableHead>
+                        <TableHead>Prefill TPS</TableHead>
+                        <TableHead>Decode TPS</TableHead>
+                        <TableHead>Source</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {matchingBenchmarks.map((b) => (
+                        <TableRow key={b.id}>
+                          <TableCell>{b.context}</TableCell>
+                          <TableCell>{b.precision}</TableCell>
+                          <TableCell>{b.mode}</TableCell>
+                          <TableCell>{b.batchSize}/{b.concurrency}</TableCell>
+                          <TableCell>{b.prefillTps || 'N/A'}</TableCell>
+                          <TableCell>{b.decodeTps}</TableCell>
+                          <TableCell title={`${b.source?.label} (${b.source?.date || 'N/A'}): ${b.source?.url}`} className="cursor-help underline">
+                            Hover for Citation
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                ) : (
+                  <p className="text-sm text-muted-foreground">No exact matching benchmarks found. Using heuristic estimation.</p>
+                )}
               </div>
             </CardContent>
           </Card>

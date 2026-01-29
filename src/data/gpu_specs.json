@@ -1,0 +1,148 @@
+[
+  {
+    "id": "rtx-4070-ti-super",
+    "name": "RTX 4070 Ti Super",
+    "tier": "consumer",
+    "vramGB": 16,
+    "memoryBandwidthGBs": 672.3,
+    "fp16Tflops": 88.2,
+    "notes": "Ada Lovelace consumer GPU.",
+    "sources": [
+      { "label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/geforce-rtx-4070-ti-super.c4187", "date": "2024-01-01" }
+    ]
+  },
+  {
+    "id": "rtx-4080-super",
+    "name": "RTX 4080 Super",
+    "tier": "consumer",
+    "vramGB": 16,
+    "memoryBandwidthGBs": 736.3,
+    "fp16Tflops": 104.4,
+    "notes": "Ada Lovelace consumer GPU.",
+    "sources": [
+      { "label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/geforce-rtx-4080-super.c4182", "date": "2024-01-01" }
+    ]
+  },
+  {
+    "id": "rtx-4090",
+    "name": "RTX 4090",
+    "tier": "consumer",
+    "vramGB": 24,
+    "memoryBandwidthGBs": 1008,
+    "fp16Tflops": 165.2,
+    "notes": "Ada Lovelace consumer GPU. Strong for LLM inference up to 70B quantized.",
+    "sources": [
+      { "label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/geforce-rtx-4090.c3889", "date": "2022-09-20" },
+      { "label": "Reddit LocalLLaMA", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1e6u031/llama3_8bs_performance_on_rtx_4090_gpu", "date": "2024-07-01" }
+    ]
+  },
+  {
+    "id": "h100-sxm",
+    "name": "H100 (SXM)",
+    "tier": "datacenter",
+    "vramGB": 80,
+    "memoryBandwidthGBs": 3350,
+    "fp16Tflops": 1979,
+    "notes": "Hopper datacenter GPU (SXM). Excellent for large LLM training/inference.",
+    "sources": [
+      { "label": "NVIDIA", "url": "https://www.nvidia.com/en-us/data-center/h100/", "date": "2022-03-22" },
+      { "label": "NVIDIA Developer Blog", "url": "https://developer.nvidia.com/blog/achieving-high-mixtral-8x7b-performance-with-nvidia-h100-tensor-core-gpus-and-tensorrt-llm", "date": "2024-07-02" }
+    ]
+  },
+  {
+    "id": "h100-pcie",
+    "name": "H100 (PCIe)",
+    "tier": "datacenter",
+    "vramGB": 80,
+    "memoryBandwidthGBs": 2000,
+    "fp16Tflops": 1513,
+    "notes": "Hopper datacenter GPU (PCIe). Slightly lower bandwidth than SXM.",
+    "sources": [
+      { "label": "NVIDIA", "url": "https://www.nvidia.com/en-us/data-center/h100/", "date": "2022-03-22" },
+      { "label": "NVIDIA Resources", "url": "https://resources.nvidia.com/en-us-hopper-architecture/nvidia-h100-tensor-c", "date": "2023-03-01" }
+    ]
+  },
+  {
+    "id": "a100-80gb",
+    "name": "A100 80GB",
+    "tier": "datacenter",
+    "vramGB": 80,
+    "memoryBandwidthGBs": 2039,
+    "fp16Tflops": 312,
+    "notes": "Ampere datacenter GPU. Solid for LLM up to 70B.",
+    "sources": [
+      { "label": "NVIDIA", "url": "https://www.nvidia.com/en-us/data-center/a100/", "date": "2020-05-14" },
+      { "label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/a100-pcie-80-gb.c3821", "date": "2021-06-28" },
+      { "label": "Qwen Docs", "url": "https://qwen.readthedocs.io/en/v2.5/benchmark/speed_benchmark.html", "date": "2024-09-01" }
+    ]
+  },
+  {
+    "id": "rtx-5090",
+    "name": "RTX 5090",
+    "tier": "consumer",
+    "vramGB": 32,
+    "memoryBandwidthGBs": 1792,
+    "fp16Tflops": 104.8,
+    "notes": "Blackwell consumer GPU. Up to 30% faster than 4090 for LLMs.",
+    "sources": [
+      { "label": "NVIDIA GeForce", "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/", "date": "2025-01-30" },
+      { "label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/geforce-rtx-5090.c4216", "date": "2025-01-30" },
+      { "label": "Bizon Tech", "url": "https://bizon-tech.com/blog/nvidia-rtx-5090-comparison-gpu-benchmarks-for-ai", "date": "2025-02-20" }
+    ]
+  },
+  {
+    "id": "rtx-5080",
+    "name": "RTX 5080",
+    "tier": "consumer",
+    "vramGB": 16,
+    "memoryBandwidthGBs": 960,
+    "fp16Tflops": 56.28,
+    "notes": "Blackwell consumer GPU. Good for mid-size LLMs.",
+    "sources": [
+      { "label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/geforce-rtx-5080.c4217", "date": "2025-01-30" },
+      { "label": "NVIDIA GeForce Compare", "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/compare/#50-series", "date": "2025-01-01" }
+    ]
+  },
+  {
+    "id": "rtx-5070-ti",
+    "name": "RTX 5070 Ti",
+    "tier": "consumer",
+    "vramGB": 16,
+    "memoryBandwidthGBs": 896,
+    "fp16Tflops": 43.94,
+    "notes": "Blackwell consumer GPU. Entry for LLM inference.",
+    "sources": [
+      { "label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/geforce-rtx-5070-ti.c4243", "date": "2025-02-20" }
+    ]
+  },
+  {
+    "id": "rtx-pro-6000-blackwell-96gb",
+    "name": "RTX PRO 6000 Blackwell (96GB)",
+    "tier": "workstation",
+    "vramGB": 96,
+    "memoryBandwidthGBs": 1792,
+    "fp16Tflops": 126,
+    "notes": "Blackwell workstation GPU. Up to 2x faster LLM inference vs H100 in some benchmarks.",
+    "sources": [
+      { "label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/rtx-pro-6000-blackwell.c4272", "date": "2025-03-18" },
+      { "label": "NVIDIA Datasheet", "url": "https://resources.nvidia.com/en-us-briefcase-for-datasheets/proviz-print-rtx6000-1?ncid=no-ncid", "date": "2025-03-17" },
+      { "label": "PNY", "url": "https://www.pny.com/nvidia-rtx-6000-blackwell", "date": "2025-03-01" },
+      { "label": "Potaka IT", "url": "https://www.binarylogic.com.bd/nvidia-rtx-a6000-48-gb-gddr6-graphics-card?srsltid=AfmBOoqjRjIePQS4gErW0jMhgLGx6uKBwBdkMyQQrvP2Xw7NZqicTajZ", "date": "2025-03-01" },
+      { "label": "NVIDIA Hopper", "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/data-center/rtx-pro-6000-blackwell-workstation-edition/workstation-blackwell-rtx-pro-6000-workstation-edition-nvidia-us-3519208-web.pdf", "date": "2025-04-01" },
+      { "label": "Reddit LocalLLaMA", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1p93r0w/benchmarking_llm_inference_on_rtx_pro_6000_vs", "date": "2025-11-28" }
+    ]
+  },
+  {
+    "id": "rtx-a6000",
+    "name": "RTX A6000 (48GB)",
+    "tier": "workstation",
+    "vramGB": 48,
+    "memoryBandwidthGBs": 768,
+    "fp16Tflops": 38.71,
+    "notes": "Ampere workstation GPU. Good for mid-large LLMs.",
+    "sources": [
+      { "label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/rtx-a6000.c3720", "date": "2020-10-05" },
+      { "label": "Binary Logic", "url": "https://www.binarylogic.com.bd/nvidia-rtx-a6000-48-gb-gddr6-graphics-card?srsltid=AfmBOoqjRjIePQS4gErW0jMhgLGx6uKBwBdkMyQQrvP2Xw7NZqicTajZ", "date": "2020-12-15" }
+    ]
+  }
+]
