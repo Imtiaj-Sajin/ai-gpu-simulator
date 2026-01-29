@@ -1,3 +1,4 @@
+// src\components\simulator\SimulatorPage.tsx
 import { useEffect, useMemo, useRef, useState } from "react";
 import { GPU_SPECS, MODEL_SPECS, type GpuTier, type ModelFamily } from "@/data/simulatorDataset";
 import { estimatePerformance, type Precision, type WorkloadMode } from "@/lib/sim/estimator";
