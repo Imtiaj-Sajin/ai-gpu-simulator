@@ -17,6 +17,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { ExternalLink, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import DataSources from "./DataSources";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 type RunState = "idle" | "prefill" | "streaming" | "done";
 
@@ -194,6 +195,11 @@ export default function SimulatorPage() {
 
   const selectedGpu = GPU_SPECS.find((g) => g.id === gpuId);
   const selectedModel = MODEL_SPECS.find((m) => m.id === modelId);
+
+  const vramFits = estimate.vram?.fits ?? true;
+  const vramRequired = estimate.vram?.requiredGB;
+  const vramAvailable = estimate.vram?.availableGB;
+  const disableStart = runState === "prefill" || runState === "streaming" || !vramFits;
 
   return (
     <TooltipProvider delayDuration={200}>
@@ -446,7 +452,7 @@ export default function SimulatorPage() {
                   </Collapsible>
 
                   <div className="grid grid-cols-3 gap-2">
-                    <Button onClick={handleStart} disabled={runState === "prefill" || runState === "streaming"}>
+                    <Button onClick={handleStart} disabled={disableStart}>
                       Start
                     </Button>
                     <Button variant="secondary" onClick={handleStop} disabled={runState === "idle"}>
@@ -456,6 +462,23 @@ export default function SimulatorPage() {
                       Reset
                     </Button>
                   </div>
+
+                  {!vramFits && (
+                    <Alert>
+                      <AlertTitle>VRAM limit</AlertTitle>
+                      <AlertDescription>
+                        This configuration likely won’t run on a single {selectedGpu?.vramGB ?? ""}GB GPU.
+                        {typeof vramRequired === "number" && typeof vramAvailable === "number" ? (
+                          <>
+                            {" "}Estimated requirement: ~{vramRequired.toFixed(1)}GB (available: {vramAvailable.toFixed(
+                              1,
+                            )}GB).
+                          </>
+                        ) : null}
+                        {" "}Try INT8/INT4, reduce context, or pick a larger-VRAM GPU.
+                      </AlertDescription>
+                    </Alert>
+                  )}
                 </CardContent>
               </Card>
 

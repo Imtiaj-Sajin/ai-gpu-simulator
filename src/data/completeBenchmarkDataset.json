@@ -1,0 +1,467 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "lastUpdated": "2025-01-29",
+    "description": "Complete GPU and LLM benchmark dataset with verified real-world data and VRAM validation"
+  },
+  "gpus": [
+    {
+      "id": "rtx-4070-ti-super",
+      "name": "RTX 4070 Ti Super",
+      "tier": "consumer",
+      "vramGB": 16,
+      "memoryBandwidthGBs": 672.3,
+      "fp16Tflops": 88.2,
+      "architecture": "Ada Lovelace",
+      "tdp": 285,
+      "sources": [
+        {"label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/geforce-rtx-4070-ti-super.c4187"}
+      ]
+    },
+    {
+      "id": "rtx-4080-super",
+      "name": "RTX 4080 Super",
+      "tier": "consumer",
+      "vramGB": 16,
+      "memoryBandwidthGBs": 736.3,
+      "fp16Tflops": 104.4,
+      "architecture": "Ada Lovelace",
+      "tdp": 320,
+      "sources": [
+        {"label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/geforce-rtx-4080-super.c4182"}
+      ]
+    },
+    {
+      "id": "rtx-4090",
+      "name": "RTX 4090",
+      "tier": "consumer",
+      "vramGB": 24,
+      "memoryBandwidthGBs": 1008,
+      "fp16Tflops": 165.2,
+      "architecture": "Ada Lovelace",
+      "tdp": 450,
+      "cudaCores": 16384,
+      "sources": [
+        {"label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/geforce-rtx-4090.c3889"},
+        {"label": "NVIDIA", "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/compare/"}
+      ]
+    },
+    {
+      "id": "rtx-5070-ti",
+      "name": "RTX 5070 Ti",
+      "tier": "consumer",
+      "vramGB": 16,
+      "memoryBandwidthGBs": 896,
+      "fp16Tflops": 177.4,
+      "architecture": "Blackwell 2.0",
+      "tdp": 300,
+      "cudaCores": 8960,
+      "sources": [
+        {"label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/geforce-rtx-5070-ti.c4243"}
+      ]
+    },
+    {
+      "id": "rtx-5080",
+      "name": "RTX 5080",
+      "tier": "consumer",
+      "vramGB": 16,
+      "memoryBandwidthGBs": 960,
+      "fp16Tflops": 225.1,
+      "architecture": "Blackwell 2.0",
+      "tdp": 360,
+      "cudaCores": 10752,
+      "sources": [
+        {"label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/geforce-rtx-5080.c4217"}
+      ]
+    },
+    {
+      "id": "rtx-5090",
+      "name": "RTX 5090",
+      "tier": "consumer",
+      "vramGB": 32,
+      "memoryBandwidthGBs": 1792,
+      "fp16Tflops": 419.2,
+      "architecture": "Blackwell 2.0",
+      "tdp": 575,
+      "cudaCores": 21760,
+      "aiTops": 3352,
+      "sources": [
+        {"label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/geforce-rtx-5090.c4216"},
+        {"label": "NVIDIA", "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/"}
+      ]
+    },
+    {
+      "id": "rtx-5090-dual",
+      "name": "2x RTX 5090",
+      "tier": "consumer",
+      "vramGB": 64,
+      "memoryBandwidthGBs": 3584,
+      "fp16Tflops": 838.4,
+      "architecture": "Blackwell 2.0",
+      "tdp": 1150,
+      "cudaCores": 43520,
+      "multiGpu": true,
+      "sources": [
+        {"label": "DatabaseMart Dual 5090 Benchmark", "url": "https://www.databasemart.com/blog/ollama-gpu-benchmark-rtx5090-2"}
+      ]
+    },
+    {
+      "id": "rtx-a6000",
+      "name": "RTX A6000",
+      "tier": "workstation",
+      "vramGB": 48,
+      "memoryBandwidthGBs": 768,
+      "fp16Tflops": 38.71,
+      "architecture": "Ampere",
+      "tdp": 300,
+      "cudaCores": 10752,
+      "sources": [
+        {"label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/rtx-a6000.c3686"}
+      ]
+    },
+    {
+      "id": "rtx-pro-6000-blackwell-96gb",
+      "name": "RTX PRO 6000 Blackwell (96GB)",
+      "tier": "workstation",
+      "vramGB": 96,
+      "memoryBandwidthGBs": 1792,
+      "fp16Tflops": 126,
+      "architecture": "Blackwell 2.0",
+      "tdp": 600,
+      "cudaCores": 24064,
+      "aiTops": 4000,
+      "sources": [
+        {"label": "TechPowerUp", "url": "https://www.techpowerup.com/gpu-specs/rtx-pro-6000-blackwell.c4272"},
+        {"label": "NVIDIA Datasheet", "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/data-center/rtx-pro-6000-blackwell-workstation-edition/workstation-blackwell-rtx-pro-6000-workstation-edition-nvidia-us-3519208-web.pdf"}
+      ]
+    },
+    {
+      "id": "a100-80gb",
+      "name": "A100 80GB",
+      "tier": "datacenter",
+      "vramGB": 80,
+      "memoryBandwidthGBs": 2039,
+      "fp16Tflops": 312,
+      "tf32Tflops": 156,
+      "architecture": "Ampere",
+      "tdp": 300,
+      "sources": [
+        {"label": "NVIDIA", "url": "https://www.nvidia.com/en-us/data-center/a100/"}
+      ]
+    },
+    {
+      "id": "h100-sxm",
+      "name": "H100 (SXM)",
+      "tier": "datacenter",
+      "vramGB": 80,
+      "memoryBandwidthGBs": 3350,
+      "fp16Tflops": 1979,
+      "fp8Tflops": 3958,
+      "architecture": "Hopper",
+      "tdp": 700,
+      "sources": [
+        {"label": "NVIDIA", "url": "https://www.nvidia.com/en-us/data-center/h100/"}
+      ]
+    },
+    {
+      "id": "h100-pcie",
+      "name": "H100 (PCIe)",
+      "tier": "datacenter",
+      "vramGB": 80,
+      "memoryBandwidthGBs": 2000,
+      "fp16Tflops": 1513,
+      "fp8Tflops": 3026,
+      "architecture": "Hopper",
+      "tdp": 350,
+      "sources": [
+        {"label": "NVIDIA", "url": "https://www.nvidia.com/en-us/data-center/h100/"}
+      ]
+    }
+  ],
+  "models": [
+    {
+      "id": "llama-3-1-8b",
+      "name": "Llama 3.1 8B",
+      "family": "llama",
+      "paramsB": 8,
+      "defaultContext": 128000,
+      "vramRequirements": {
+        "fp16": 16,
+        "fp8": 8,
+        "int8": 8,
+        "int4": 4.5
+      },
+      "sources": [{"label": "Meta AI", "url": "https://ai.meta.com/blog/meta-llama-3-1/"}]
+    },
+    {
+      "id": "llama-3-1-70b",
+      "name": "Llama 3.1 70B",
+      "family": "llama",
+      "paramsB": 70,
+      "defaultContext": 128000,
+      "vramRequirements": {
+        "fp16": 140,
+        "fp8": 70,
+        "int8": 70,
+        "int4": 40
+      },
+      "sources": [{"label": "Meta AI", "url": "https://ai.meta.com/blog/meta-llama-3-1/"}]
+    },
+    {
+      "id": "mistral-7b",
+      "name": "Mistral 7B",
+      "family": "mistral",
+      "paramsB": 7,
+      "defaultContext": 8192,
+      "vramRequirements": {
+        "fp16": 14,
+        "int4": 4
+      },
+      "sources": [{"label": "Mistral AI", "url": "https://mistral.ai/news/announcing-mistral-7b/"}]
+    },
+    {
+      "id": "mixtral-8x7b",
+      "name": "Mixtral 8x7B",
+      "family": "mistral",
+      "paramsB": 46.7,
+      "defaultContext": 32768,
+      "vramRequirements": {
+        "fp16": 93,
+        "int4": 26
+      },
+      "sources": [{"label": "Mistral AI", "url": "https://mistral.ai/news/mixtral-of-experts/"}]
+    },
+    {
+      "id": "mixtral-8x22b",
+      "name": "Mixtral 8x22B",
+      "family": "mistral",
+      "paramsB": 141,
+      "defaultContext": 65536,
+      "vramRequirements": {
+        "fp16": 282,
+        "int4": 80
+      },
+      "sources": [{"label": "Mistral AI", "url": "https://mistral.ai/news/mixtral-8x22b/"}]
+    },
+    {
+      "id": "qwen-2-5-7b",
+      "name": "Qwen2.5 7B",
+      "family": "qwen",
+      "paramsB": 7.61,
+      "defaultContext": 131072,
+      "vramRequirements": {
+        "fp16": 15,
+        "int4": 4.5
+      },
+      "sources": [{"label": "Qwen Team", "url": "https://qwenlm.github.io/blog/qwen2.5/"}]
+    },
+    {
+      "id": "qwen-2-5-32b",
+      "name": "Qwen2.5 32B",
+      "family": "qwen",
+      "paramsB": 32.5,
+      "defaultContext": 131072,
+      "vramRequirements": {
+        "fp16": 65,
+        "int4": 20
+      },
+      "sources": [{"label": "Qwen Team", "url": "https://qwenlm.github.io/blog/qwen2.5/"}]
+    },
+    {
+      "id": "qwen-2-5-72b",
+      "name": "Qwen2.5 72B",
+      "family": "qwen",
+      "paramsB": 72,
+      "defaultContext": 128000,
+      "vramRequirements": {
+        "fp16": 144,
+        "int4": 41
+      },
+      "sources": [{"label": "Qwen Team", "url": "https://qwenlm.github.io/blog/qwen2.5/"}]
+    },
+    {
+      "id": "deepseek-r1-32b",
+      "name": "DeepSeek R1 32B",
+      "family": "deepseek",
+      "paramsB": 32,
+      "defaultContext": 32768,
+      "vramRequirements": {
+        "fp16": 64,
+        "int4": 19
+      },
+      "sources": [{"label": "DeepSeek AI", "url": "https://github.com/deepseek-ai/DeepSeek-R1"}]
+    },
+    {
+      "id": "gpt-oss-20b",
+      "name": "GPT-OSS 20B",
+      "family": "other",
+      "paramsB": 21,
+      "defaultContext": 128000,
+      "vramRequirements": {
+        "fp16": 44.71,
+        "int8": 23.32,
+        "int4": 12.62
+      },
+      "sources": [{"label": "APXML GPT-OSS", "url": "https://apxml.com/models/gpt-oss-20b"}]
+    },
+    {
+      "id": "gpt-oss-120b",
+      "name": "GPT-OSS 120B",
+      "family": "other",
+      "paramsB": 117,
+      "defaultContext": 128000,
+      "vramRequirements": {
+        "fp16": 236.46,
+        "int8": 119.25,
+        "int4": 60.64
+      },
+      "sources": [{"label": "APXML GPT-OSS", "url": "https://apxml.com/models/gpt-oss-120b"}]
+    }
+  ],
+  "benchmarks": [
+    {
+      "id": "rtx4090-llama8b-fp16",
+      "gpuId": "rtx-4090",
+      "modelId": "llama-3-1-8b",
+      "context": 4096,
+      "precision": "fp16",
+      "mode": "single",
+      "batchSize": 1,
+      "concurrency": 1,
+      "prefillTps": 900,
+      "decodeTps": 110,
+      "framework": "vLLM",
+      "sources": [
+        {"label": "ermolushka vLLM Benchmark", "url": "https://ermolushka.github.io/posts/vllm-benchmark-4090/", "date": "2024-09"}
+      ]
+    },
+    {
+      "id": "rtx4090-llama8b-awq",
+      "gpuId": "rtx-4090",
+      "modelId": "llama-3-1-8b",
+      "context": 4096,
+      "precision": "int8",
+      "mode": "single",
+      "batchSize": 1,
+      "concurrency": 1,
+      "prefillTps": 4500,
+      "decodeTps": 579,
+      "framework": "vLLM AWQ",
+      "sources": [
+        {"label": "ermolushka vLLM Benchmark", "url": "https://ermolushka.github.io/posts/vllm-benchmark-4090/", "date": "2024-09"}
+      ]
+    },
+    {
+      "id": "rtx5090-qwen7b-single",
+      "gpuId": "rtx-5090",
+      "modelId": "qwen-2-5-7b",
+      "context": 4096,
+      "precision": "fp16",
+      "mode": "single",
+      "batchSize": 1,
+      "concurrency": 1,
+      "prefillTps": 7000,
+      "decodeTps": 213,
+      "framework": "vLLM",
+      "sources": [
+        {"label": "LocalLLM Best GPUs 2025", "url": "https://localllm.in/blog/best-gpus-llm-inference-2025", "date": "2025-08"}
+      ]
+    },
+    {
+      "id": "rtx5090-deepseek32b-single",
+      "gpuId": "rtx-5090",
+      "modelId": "deepseek-r1-32b",
+      "context": 4096,
+      "precision": "fp16",
+      "mode": "single",
+      "batchSize": 1,
+      "concurrency": 1,
+      "prefillTps": 2000,
+      "decodeTps": 85,
+      "framework": "Ollama",
+      "sources": [
+        {"label": "DatabaseMart RTX 5090 Benchmark", "url": "https://www.databasemart.com/blog/ollama-gpu-benchmark-rtx5090", "date": "2025"}
+      ]
+    },
+    {
+      "id": "rtx5090-dual-llama70b-fp16",
+      "gpuId": "rtx-5090-dual",
+      "modelId": "llama-3-1-70b",
+      "context": 4096,
+      "precision": "fp16",
+      "mode": "single",
+      "batchSize": 1,
+      "concurrency": 1,
+      "prefillTps": 900,
+      "decodeTps": 27,
+      "framework": "Ollama",
+      "sources": [
+        {"label": "DatabaseMart Dual RTX 5090", "url": "https://www.databasemart.com/blog/ollama-gpu-benchmark-rtx5090-2", "date": "2025"}
+      ]
+    },
+    {
+      "id": "rtx5090-dual-qwen72b-fp16",
+      "gpuId": "rtx-5090-dual",
+      "modelId": "qwen-2-5-72b",
+      "context": 4096,
+      "precision": "fp16",
+      "mode": "single",
+      "batchSize": 1,
+      "concurrency": 1,
+      "prefillTps": 850,
+      "decodeTps": 26,
+      "framework": "Ollama",
+      "sources": [
+        {"label": "DatabaseMart Dual RTX 5090", "url": "https://www.databasemart.com/blog/ollama-gpu-benchmark-rtx5090-2", "date": "2025"}
+      ]
+    },
+    {
+      "id": "a100-llama8b-fp16",
+      "gpuId": "a100-80gb",
+      "modelId": "llama-3-1-8b",
+      "context": 2048,
+      "precision": "fp16",
+      "mode": "single",
+      "batchSize": 1,
+      "concurrency": 1,
+      "prefillTps": 2100,
+      "decodeTps": 138,
+      "framework": "vLLM",
+      "sources": [
+        {"label": "LocalLLM Best GPUs 2025", "url": "https://localllm.in/blog/best-gpus-llm-inference-2025", "date": "2025-08"}
+      ]
+    },
+    {
+      "id": "h100-llama8b-fp16",
+      "gpuId": "h100-sxm",
+      "modelId": "llama-3-1-8b",
+      "context": 2048,
+      "precision": "fp16",
+      "mode": "single",
+      "batchSize": 1,
+      "concurrency": 1,
+      "prefillTps": 8000,
+      "decodeTps": 144,
+      "framework": "vLLM",
+      "sources": [
+        {"label": "LocalLLM Best GPUs 2025", "url": "https://localllm.in/blog/best-gpus-llm-inference-2025", "date": "2025-08"}
+      ]
+    },
+    {
+      "id": "h100-llama8b-throughput",
+      "gpuId": "h100-sxm",
+      "modelId": "llama-3-1-8b",
+      "context": 4096,
+      "precision": "fp16",
+      "mode": "throughput",
+      "batchSize": 16,
+      "concurrency": 16,
+      "prefillTps": 12000,
+      "decodeTps": 2400,
+      "framework": "vLLM 0.6.0",
+      "sources": [
+        {"label": "vLLM v0.6.0 Performance", "url": "https://blog.vllm.ai/2024/09/05/perf-update.html", "date": "2024-09-05"}
+      ]
+    }
+  ]
+}

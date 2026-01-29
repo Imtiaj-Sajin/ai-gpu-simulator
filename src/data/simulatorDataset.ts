@@ -5,6 +5,8 @@ export type GpuSpec = {
   id: string;
   name: string;
   tier: GpuTier;
+  /** High-level architecture family (used for conservative scaling), e.g. Ada / Hopper / Blackwell. */
+  architecture?: "Ada" | "Ampere" | "Hopper" | "Blackwell" | "Other";
   vramGB: number;
   memoryBandwidthGBs?: number;
   fp16Tflops?: number;
@@ -29,6 +31,7 @@ export const GPU_SPECS: GpuSpec[] = [
     id: "rtx-4070-ti-super",
     name: "RTX 4070 Ti Super",
     tier: "consumer",
+    architecture: "Ada",
     vramGB: 16,
     memoryBandwidthGBs: 672.3,
     fp16Tflops: 88.2,
@@ -39,6 +42,7 @@ export const GPU_SPECS: GpuSpec[] = [
     id: "rtx-4080-super",
     name: "RTX 4080 Super",
     tier: "consumer",
+    architecture: "Ada",
     vramGB: 16,
     memoryBandwidthGBs: 736.3,
     fp16Tflops: 104.4,
@@ -49,6 +53,7 @@ export const GPU_SPECS: GpuSpec[] = [
     id: "rtx-4090",
     name: "RTX 4090",
     tier: "consumer",
+    architecture: "Ada",
     vramGB: 24,
     memoryBandwidthGBs: 1008,
     fp16Tflops: 165.2,
@@ -62,6 +67,7 @@ export const GPU_SPECS: GpuSpec[] = [
     id: "rtx-5070-ti",
     name: "RTX 5070 Ti",
     tier: "consumer",
+    architecture: "Blackwell",
     vramGB: 16,
     memoryBandwidthGBs: 896,
     fp16Tflops: 177.4,
@@ -75,6 +81,7 @@ export const GPU_SPECS: GpuSpec[] = [
     id: "rtx-5080",
     name: "RTX 5080",
     tier: "consumer",
+    architecture: "Blackwell",
     vramGB: 16,
     memoryBandwidthGBs: 960,
     fp16Tflops: 225.1,
@@ -88,6 +95,7 @@ export const GPU_SPECS: GpuSpec[] = [
     id: "rtx-5090",
     name: "RTX 5090",
     tier: "consumer",
+    architecture: "Blackwell",
     vramGB: 32,
     memoryBandwidthGBs: 1792,
     fp16Tflops: 419.2,
@@ -101,6 +109,7 @@ export const GPU_SPECS: GpuSpec[] = [
     id: "rtx-a6000",
     name: "RTX A6000",
     tier: "workstation",
+    architecture: "Ampere",
     vramGB: 48,
     memoryBandwidthGBs: 768,
     fp16Tflops: 38.71,
@@ -108,9 +117,22 @@ export const GPU_SPECS: GpuSpec[] = [
     sources: [{ label: "TechPowerUp", url: "https://www.techpowerup.com/gpu-specs/rtx-a6000.c3686" }],
   },
   {
+    id: "rtx-pro-6000-blackwell-48gb",
+    name: "RTX PRO 6000 Blackwell (48GB)",
+    tier: "workstation",
+    architecture: "Blackwell",
+    vramGB: 48,
+    notes:
+      "Blackwell workstation GPU variant. Exact bandwidth/TFLOPS can vary by edition; kept conservative until confirmed.",
+    sources: [
+      { label: "NVIDIA", url: "https://www.nvidia.com/en-us/data-center/rtx-pro-6000-blackwell-server-edition/" },
+    ],
+  },
+  {
     id: "rtx-pro-6000-blackwell-96gb",
     name: "RTX PRO 6000 Blackwell (96GB)",
     tier: "workstation",
+    architecture: "Blackwell",
     vramGB: 96,
     memoryBandwidthGBs: 1792,
     fp16Tflops: 126,
@@ -127,6 +149,7 @@ export const GPU_SPECS: GpuSpec[] = [
     id: "a100-80gb",
     name: "A100 80GB",
     tier: "datacenter",
+    architecture: "Ampere",
     vramGB: 80,
     memoryBandwidthGBs: 2039,
     fp16Tflops: 312,
@@ -140,6 +163,7 @@ export const GPU_SPECS: GpuSpec[] = [
     id: "h100-sxm",
     name: "H100 (SXM)",
     tier: "datacenter",
+    architecture: "Hopper",
     vramGB: 80,
     memoryBandwidthGBs: 3350,
     fp16Tflops: 1979,
@@ -153,6 +177,7 @@ export const GPU_SPECS: GpuSpec[] = [
     id: "h100-pcie",
     name: "H100 (PCIe)",
     tier: "datacenter",
+    architecture: "Hopper",
     vramGB: 80,
     memoryBandwidthGBs: 2000,
     fp16Tflops: 1513,
@@ -241,6 +266,26 @@ export const MODEL_SPECS: ModelSpec[] = [
     paramsB: 32,
     defaultContext: 32768,
     sources: [{ label: "DeepSeek AI", url: "https://github.com/deepseek-ai/DeepSeek-R1" }],
+  },
+  {
+    id: "gpt-oss-20b",
+    name: "GPT-OSS 20B",
+    family: "other",
+    paramsB: 21,
+    defaultContext: 128000,
+    notes:
+      "MoE model (active ~21B). VRAM depends heavily on quantization + context; see source for detailed requirements.",
+    sources: [{ label: "apxml model card", url: "https://apxml.com/models/gpt-oss-20b" }],
+  },
+  {
+    id: "gpt-oss-120b",
+    name: "GPT-OSS 120B",
+    family: "other",
+    paramsB: 117,
+    defaultContext: 128000,
+    notes:
+      "MoE model (active ~117B). Typically multi-GPU for FP16; quantization required for single-GPU attempts.",
+    sources: [{ label: "apxml model card", url: "https://apxml.com/models/gpt-oss-120b" }],
   },
 ];
 
