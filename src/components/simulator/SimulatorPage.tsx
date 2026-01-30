@@ -891,9 +891,7 @@ export default function SimulatorPage() {
             transition={{ delay: 0.3 }}
             className="flex flex-col items-center gap-6"
           >
-            <button className="group px-8 py-3 bg-[#111] text-white text-[15px] font-semibold rounded-lg hover:bg-black/90 transition-all shadow-xl shadow-black/10 hover:scale-105 active:scale-95 flex items-center gap-2">
-              Start Simulating
-            </button>
+<button className="relative h-12 overflow-hidden rounded-xl bg-neutral-950 px-5 py-2.5 text-white transition-all duration-300 hover:bg-neutral-800 hover:ring-2 hover:ring-neutral-800 hover:ring-offset-2"><span className="relative">Start Simulating</span></button>
             <div className="flex items-center gap-2 text-[13px] font-medium text-gray-700">
               <div className="flex items-center gap-1.5">
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
