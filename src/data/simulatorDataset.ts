@@ -294,7 +294,7 @@ export type BenchmarkPoint = {
   gpuId: string;
   modelId: string;
   context: number;
-  precision: "fp16" | "int8" | "int4";
+  precision: "fp16" | "int8";
   mode: "single" | "throughput";
   batchSize: number;
   concurrency: number;
@@ -327,7 +327,7 @@ export const BENCHMARKS: BenchmarkPoint[] = [
     gpuId: "rtx-4090",
     modelId: "llama-3-1-8b",
     context: 4096,
-    precision: "int4",
+    precision: "int8",
     mode: "single",
     batchSize: 1,
     concurrency: 1,
@@ -344,7 +344,7 @@ export const BENCHMARKS: BenchmarkPoint[] = [
     gpuId: "rtx-4090",
     modelId: "llama-3-1-8b",
     context: 4096,
-    precision: "int4",
+    precision: "int8",
     mode: "single",
     batchSize: 1,
     concurrency: 1,

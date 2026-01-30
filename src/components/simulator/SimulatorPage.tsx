@@ -47,7 +47,7 @@ import {
 import { SimulatingStatus } from "./SimulatingStatus";
 
 type SectionVariant = "a" | "b" | "c" | "d";
-type AsideKind = "none" | "motif" | "image-a" | "image-b";
+type AsideKind = "none" | "motif" | "image-a" | "image-b" | "image-c";
 type RunState = "idle" | "prefill" | "streaming" | "done";
 
 const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
@@ -100,10 +100,19 @@ function LandingSection({
   aside?: AsideKind;
   children: ReactNode;
 }) {
-  const hasAsideImage = aside === "image-a" || aside === "image-b";
+// Update this logic block inside LandingSection function:
+  
+  const hasAsideImage = aside === "image-a" || aside === "image-b" || aside === "image-c";
+  
   const asideNode = (() => {
     if (!hasAsideImage) return null;
-    const src = aside === "image-a" ? "/landing/section-aside2.jpg" : "/landing/section-aside5.png";
+    
+    // Logic to pick the correct image based on the 'aside' prop
+    let src = "";
+    if (aside === "image-a") src = "/landing/section-aside2.jpg";
+    else if (aside === "image-b") src = "/landing/section-aside5.png";
+    else if (aside === "image-c") src = "/landing/section5.jpg"; // Your new image
+
     return (
       <div className="mt-6 overflow-hidden rounded-2xl border bg-white/50 p-2 backdrop-blur-md">
         <img src={src} alt="Decorative section visual" className="h-full w-full rounded-xl object-cover" loading="lazy" />
@@ -1437,7 +1446,7 @@ export default function SimulatorPage() {
               description="Rows related to your selection are highlighted."
               variant="a"
               layout="left"
-              aside="image-a"
+              aside="image-c"
             >
               <BenchmarksTableInline selectedGpuId={gpuId} selectedModelId={modelId} />
             </LandingSection>
