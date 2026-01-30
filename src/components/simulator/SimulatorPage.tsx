@@ -840,7 +840,7 @@ export default function SimulatorPage() {
         <nav className="relative z-50 px-4 py-5 flex items-center justify-between max-w-7xl mx-auto">
           <div className="flex items-center gap-2 font-bold text-lg tracking-tight text-gray-900 cursor-pointer select-none">
             <Cpu className="w-5 h-5 fill-current" />
-            <span>AI Simulator</span>
+            <span>AI x Gpu Simulator</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-[14px] font-medium text-gray-600">
             {['Home', 'How it works', 'Formulas', 'GPU Specs', 'Model Specs', 'Benchmarks'].map((item) => (
@@ -933,7 +933,7 @@ export default function SimulatorPage() {
                 </div>
                 <div className="flex-1 max-w-lg mx-auto bg-gray-50 rounded-md flex items-center justify-center gap-2 h-7 text-[11px] text-gray-500 font-medium border border-gray-100/50">
                   <span className="opacity-50">🔒</span>
-                  ai-simulator.com
+                  aigpusim.vercel.app/
                   <span className="opacity-50 ml-auto mr-2 rotate-45">📎</span>
                 </div>
                 <div className="flex gap-3 text-gray-400">
@@ -1342,7 +1342,7 @@ export default function SimulatorPage() {
                           </div>
                           <div className="rounded-md border border-gray-200 bg-gray-50 p-3">
                             <div className="mb-2 text-xs font-medium text-gray-500">Live output</div>
-                            <div className="h-[240px] overflow-auto whitespace-pre-wrap break-words font-mono text-xs leading-relaxed text-gray-900">
+                            <div className="h-[240px] overflow-auto whitespace-pre-wrap break-words font-mono text-xs text-left leading-relaxed text-gray-900">
                               {consoleText || "(press Start to simulate streaming output)"}
                             </div>
                           </div>
