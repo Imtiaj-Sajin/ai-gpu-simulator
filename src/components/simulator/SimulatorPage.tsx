@@ -67,7 +67,7 @@ function SectionShell({ variant, children, className }: { variant: SectionVarian
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-3xl bg-white/80 px-4 py-10 shadow-soft backdrop-blur-md sm:px-8 md:px-10 md:py-12",
+        "relative overflow-hidden rounded-3xl bg-white/10 px-4 py-10 shadow-soft backdrop-blur-xl border sm:px-8 md:px-10 md:py-12",
         className,
       )}
     >
@@ -102,7 +102,7 @@ function LandingSection({
     if (!hasAsideImage) return null;
     const src = aside === "image-a" ? "/landing/section-aside2.jpg" : "/landing/section-aside5.png";
     return (
-      <div className="mt-6 overflow-hidden rounded-2xl border bg-white/80 p-2 backdrop-blur-md">
+      <div className="mt-6 overflow-hidden rounded-2xl border bg-white/50 p-2 backdrop-blur-md">
         <img src={src} alt="Decorative section visual" className="h-full w-full rounded-xl object-cover" loading="lazy" />
       </div>
     );
@@ -179,7 +179,7 @@ function HowItWorksInline({
   return (
     <div className="grid gap-4 lg:grid-cols-4">
       {steps.map((s, idx) => (
-        <Card key={s.title} className="shadow-soft bg-white/80 backdrop-blur-md">
+        <Card key={s.title} className="shadow-soft bg-white/50 backdrop-blur-md">
           <CardHeader>
             <div className="flex items-center justify-between gap-3">
               <Badge variant="secondary" className="bg-gray-100 text-gray-600">{s.badge}</Badge>
@@ -210,7 +210,7 @@ function FormulasInline({ precision, context, estimate }: { precision: Precision
   const kvm = kvMultiplier(precision);
   return (
     <div className="grid gap-4 lg:grid-cols-3">
-      <Card className="shadow-soft bg-white/80 backdrop-blur-md">
+      <Card className="shadow-soft bg-white/50 backdrop-blur-md">
         <CardHeader>
           <CardTitle className="text-base text-gray-900">VRAM (fit check)</CardTitle>
         </CardHeader>
@@ -236,7 +236,7 @@ function FormulasInline({ precision, context, estimate }: { precision: Precision
           ) : null}
         </CardContent>
       </Card>
-      <Card className="shadow-soft bg-white/80 backdrop-blur-md">
+      <Card className="shadow-soft bg-white/50 backdrop-blur-md">
         <CardHeader>
           <CardTitle className="text-base text-gray-900">Speed (decode)</CardTitle>
         </CardHeader>
@@ -255,7 +255,7 @@ function FormulasInline({ precision, context, estimate }: { precision: Precision
           <div className="text-xs">When a matching benchmark exists, we use it first (then apply conservative caps).</div>
         </CardContent>
       </Card>
-      <Card className="shadow-soft bg-white/80 backdrop-blur-md">
+      <Card className="shadow-soft bg-white/50 backdrop-blur-md">
         <CardHeader>
           <CardTitle className="text-base text-gray-900">TTFT + Total time</CardTitle>
         </CardHeader>
@@ -281,7 +281,7 @@ function GpuSpecsTableInline({ selectedGpuId }: { selectedGpuId: string }) {
         <div className="text-sm font-semibold tracking-tight text-gray-900">GPU specs</div>
         <Badge variant="secondary" className="bg-gray-100 text-gray-600">{GPU_SPECS.length} GPUs</Badge>
       </div>
-      <div className="rounded-2xl border bg-white/80 shadow-soft backdrop-blur-md">
+      <div className="rounded-2xl border bg-white/50 shadow-soft backdrop-blur-md">
         <div className="max-h-[520px] overflow-auto">
           <Table>
             <TableHeader>
@@ -345,7 +345,7 @@ function ModelSpecsTableInline({ selectedModelId }: { selectedModelId: string })
         <div className="text-sm font-semibold tracking-tight text-gray-900">Model specs</div>
         <Badge variant="secondary" className="bg-gray-100 text-gray-600">{MODEL_SPECS.length} models</Badge>
       </div>
-      <div className="rounded-2xl border bg-white/80 shadow-soft backdrop-blur-md">
+      <div className="rounded-2xl border bg-white/50 shadow-soft backdrop-blur-md">
         <div className="max-h-[520px] overflow-auto">
           <Table>
             <TableHeader>
@@ -403,7 +403,7 @@ function BenchmarksTableInline({ selectedGpuId, selectedModelId }: { selectedGpu
         <div className="text-sm font-semibold tracking-tight text-gray-900">Benchmarks</div>
         <Badge variant="secondary" className="bg-gray-100 text-gray-600">{BENCHMARKS.length} datapoints</Badge>
       </div>
-      <div className="rounded-2xl border bg-white/80 shadow-soft backdrop-blur-md">
+      <div className="rounded-2xl border bg-white/50 shadow-soft backdrop-blur-md">
         <div className="max-h-[520px] overflow-auto">
           <Table>
             <TableHeader>
@@ -460,7 +460,7 @@ function BenchmarksTableInline({ selectedGpuId, selectedModelId }: { selectedGpu
 
 function PerformanceBenchmarksInline() {
   return (
-    <Card className="shadow-soft bg-white/80 backdrop-blur-md">
+    <Card className="shadow-soft bg-white/50 backdrop-blur-md">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-gray-900">
           Performance Benchmarks
@@ -554,7 +554,7 @@ function PerformanceBenchmarksInline() {
 
 function EstimationMethodologyInline() {
   return (
-    <Card className="shadow-soft bg-white/80 backdrop-blur-md">
+    <Card className="shadow-soft bg-white/50 backdrop-blur-md">
       <CardHeader>
         <CardTitle className="text-gray-900">Estimation Methodology</CardTitle>
         <CardDescription className="text-gray-500">How we calculate performance for configurations without benchmark data</CardDescription>
@@ -862,7 +862,7 @@ export default function SimulatorPage() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/80 border border-white/50 backdrop-blur-md rounded-full text-[13px] font-medium mb-8 shadow-sm text-gray-600 cursor-default hover:shadow-md transition-shadow"
+            className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/50 border border-white/50 backdrop-blur-md rounded-full text-[13px] font-medium mb-8 shadow-sm text-gray-600 cursor-default hover:shadow-md transition-shadow"
           >
             <span className="text-pink-600 font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-purple-600">10+</span>
             <span>Benchmarks Used Daily</span>
@@ -916,7 +916,7 @@ export default function SimulatorPage() {
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="mt-16 w-full max-w-7xl mx-auto p-1 bg-gradient-to-b from-white/40 to-transparent rounded-2xl relative z-20"
+            className="mt-16 w-full max-w-7xl mx-auto p-2 bg-gradient-to-b from-white/40 to-transparent rounded-2xl relative z-20"
           >
             <div className="bg-white w-full rounded-xl border border-gray-200/80 shadow-2xl shadow-gray-200/50 overflow-hidden flex flex-col min-h-[600px]">
               {/* Browser Header */}
@@ -947,7 +947,7 @@ export default function SimulatorPage() {
                   <div className="grid gap-6 lg:grid-cols-[420px_1fr]">
                     {/* Controls */}
                     <section className="space-y-4">
-                      <Card className="bg-white/80 backdrop-blur-md shadow-soft">
+                      <Card className="bg-white/50 backdrop-blur-md shadow-soft">
                         <CardHeader>
                           <CardTitle className="text-gray-900">Simulator</CardTitle>
                           <CardDescription className="text-gray-500">All PC components are fixed; only the GPU changes.</CardDescription>
@@ -959,7 +959,7 @@ export default function SimulatorPage() {
                               <SelectTrigger>
                                 <SelectValue placeholder="Select GPU" />
                               </SelectTrigger>
-                              <SelectContent className="z-50 bg-white/80 backdrop-blur-md">
+                              <SelectContent className="z-50 bg-white/50 backdrop-blur-md">
                                 {(Object.keys(gpusByTier) as GpuTier[]).map((tier) => (
                                   <div key={tier} className="px-2 py-1.5">
                                     <div className="px-2 pb-1 text-xs font-medium text-gray-500">{tierLabel(tier)}</div>
@@ -985,7 +985,7 @@ export default function SimulatorPage() {
                                       <Info className="h-3 w-3" />
                                     </button>
                                   </TooltipTrigger>
-                                  <TooltipContent side="right" className="max-w-xs bg-white/80 backdrop-blur-md">
+                                  <TooltipContent side="right" className="max-w-xs bg-white/50 backdrop-blur-md">
                                     <div className="space-y-2">
                                       <div className="font-semibold text-gray-900">GPU Specifications</div>
                                       <div className="space-y-1 text-xs text-gray-500">
@@ -1020,7 +1020,7 @@ export default function SimulatorPage() {
                               <SelectTrigger>
                                 <SelectValue placeholder="Select model" />
                               </SelectTrigger>
-                              <SelectContent className="z-50 bg-white/80 backdrop-blur-md">
+                              <SelectContent className="z-50 bg-white/50 backdrop-blur-md">
                                 {(Object.keys(modelsByFamily) as ModelFamily[]).map((fam) => (
                                   <div key={fam} className="px-2 py-1.5">
                                     <div className="px-2 pb-1 text-xs font-medium text-gray-500">{familyLabel(fam)}</div>
@@ -1047,7 +1047,7 @@ export default function SimulatorPage() {
                                         <Info className="h-3 w-3" />
                                       </button>
                                     </TooltipTrigger>
-                                    <TooltipContent side="right" className="max-w-xs bg-white/80 backdrop-blur-md">
+                                    <TooltipContent side="right" className="max-w-xs bg-white/50 backdrop-blur-md">
                                       <div className="space-y-2">
                                         <div className="font-semibold text-gray-900">Model Details</div>
                                         <div className="space-y-1 text-xs text-gray-500">
@@ -1163,7 +1163,7 @@ export default function SimulatorPage() {
                                   <SelectTrigger>
                                     <SelectValue placeholder="Select precision" />
                                   </SelectTrigger>
-                                  <SelectContent className="z-50 bg-white/80 backdrop-blur-md">
+                                  <SelectContent className="z-50 bg-white/50 backdrop-blur-md">
                                     <SelectItem value="fp16">FP16 / BF16</SelectItem>
                                     <SelectItem value="int8">INT8</SelectItem>
                                     <SelectItem value="int4">INT4</SelectItem>
@@ -1202,7 +1202,7 @@ export default function SimulatorPage() {
                           )}
                         </CardContent>
                       </Card>
-                      <Card className="bg-white/80 backdrop-blur-md shadow-soft">
+                      <Card className="bg-white/50 backdrop-blur-md shadow-soft">
                         <CardHeader>
                           <CardTitle className="text-gray-900">Fixed PC baseline</CardTitle>
                           <CardDescription className="text-gray-500">Shown for clarity; not used to differentiate results.</CardDescription>
@@ -1225,7 +1225,7 @@ export default function SimulatorPage() {
                     {/* Results */}
                     <section className="space-y-4">
                       <div className="grid gap-4 sm:grid-cols-2">
-                        <Card className="bg-white/80 backdrop-blur-md shadow-soft">
+                        <Card className="bg-white/50 backdrop-blur-md shadow-soft">
                           <CardHeader>
                             <CardTitle className="flex items-center gap-2 text-base text-gray-900">
                               TTFT
@@ -1235,7 +1235,7 @@ export default function SimulatorPage() {
                                     <Info className="h-4 w-4" />
                                   </button>
                                 </TooltipTrigger>
-                                <TooltipContent className="bg-white/80 backdrop-blur-md">
+                                <TooltipContent className="bg-white/50 backdrop-blur-md">
                                   <div className="space-y-1">
                                     <div className="font-semibold text-gray-900">Time to First Token</div>
                                     <div className="text-xs text-gray-500">How long it takes to process your prompt and generate the first token</div>
@@ -1252,7 +1252,7 @@ export default function SimulatorPage() {
                             </div>
                           </CardContent>
                         </Card>
-                        <Card className="bg-white/80 backdrop-blur-md shadow-soft">
+                        <Card className="bg-white/50 backdrop-blur-md shadow-soft">
                           <CardHeader>
                             <CardTitle className="flex items-center gap-2 text-base text-gray-900">
                               Decode speed
@@ -1263,7 +1263,7 @@ export default function SimulatorPage() {
                                       <Info className="h-4 w-4" />
                                     </button>
                                   </TooltipTrigger>
-                                  <TooltipContent className="max-w-xs bg-white/80 backdrop-blur-md">
+                                  <TooltipContent className="max-w-xs bg-white/50 backdrop-blur-md">
                                     <div className="space-y-2">
                                       <div className="font-semibold text-gray-900">Benchmark Source</div>
                                       <a
@@ -1295,7 +1295,7 @@ export default function SimulatorPage() {
                                     {conf.text}
                                   </Badge>
                                 </TooltipTrigger>
-                                <TooltipContent className="bg-white/80 backdrop-blur-md">
+                                <TooltipContent className="bg-white/50 backdrop-blur-md">
                                   <div className="space-y-1 text-xs text-gray-500">
                                     {estimate.confidence === "high" && <div>Based on exact benchmark match</div>}
                                     {estimate.confidence === "medium" && <div>Interpolated from similar configurations</div>}
@@ -1307,7 +1307,7 @@ export default function SimulatorPage() {
                           </CardContent>
                         </Card>
                       </div>
-                      <Card className="bg-white/80 backdrop-blur-md shadow-soft">
+                      <Card className="bg-white/50 backdrop-blur-md shadow-soft">
                         <CardHeader>
                           <div className="flex items-start justify-between gap-3">
                             <div>
