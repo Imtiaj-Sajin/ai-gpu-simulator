@@ -29,6 +29,11 @@ const WORDS = [
   "vram",
   "core",
   "Hi there!",
+  'catch',
+  'me',
+  'if',
+  'you',
+  'can',
 ];
 
 export function randomWords(count: number): string {

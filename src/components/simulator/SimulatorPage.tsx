@@ -131,7 +131,7 @@ function LandingSection({
         >
           <div className={cn(hasAsideImage ? layout === "right" && "lg:order-2" : "mx-auto w-full")}>
             <SectionShell variant={variant} className="panel-card">
-              <header className="mx-auto max-w-3xl text-left">
+              <header className="mx-auto   text-left">
                 {eyebrow ? (
                   <div className="text-xs font-medium uppercase tracking-[0.22em] text-gray-500">{eyebrow}</div>
                 ) : null}
