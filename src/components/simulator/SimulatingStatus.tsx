@@ -85,30 +85,30 @@ const shadcn = [
 
 const items: DotFlowProps["items"] = [
     {
-        title: "Importing Data",
+        title: "Don’t Buy GPUs Blindly",
         frames: importing,
         duration: 200,
     },
     {
-        title: "Syncing GPU",
+        title: "VRAM Requirements",
         frames: syncing,
         repeatCount: 2,
         duration: 100,
     },
     {
-        title: "Finding Benchmarks",
+        title: "Based on Specs & Benchmark Data",
         frames: searching,
         repeatCount: 2,
         duration: 150,
     },
     {
-        title: "Loading Models",
+        title: "Model Size, Context & Precision",
         frames: shadcn,
         repeatCount: 2,
         duration: 200,
     },
     {
-        title: "Ready to Simulate",
+        title: "Simulate Now ",
         frames: heartbit,
         repeatCount: 2,
     },

@@ -64,7 +64,7 @@ export const DotFlow = ({ items }: DotFlowProps) => {
 
     return (
         // I adjusted the padding/height here to match your original button size closely
-        <div className="flex h-12 items-center gap-4 rounded-xl bg-neutral-950 px-5 py-2.5 shadow-md">
+        <div className="flex h-12 items-center gap-4 rounded-md bg-neutral-950 px-2 py-2.5 shadow-md">
             <DotLoader
                 frames={items[index].frames}
                 onComplete={next}

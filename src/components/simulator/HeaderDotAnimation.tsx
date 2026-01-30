@@ -118,6 +118,52 @@ const shadcn = [
     [47, 41, 45, 39, 33, 27], [47, 41, 45, 39, 33, 27],
 ];
 
+// --- ROBOT (Blinking & Talking) ---
+const robotBase = [
+    3,              // Antenna Tip
+    10,             // Antenna Base
+    8, 9, 11, 12,   // Head Top
+    15, 19,         // Head Sides Top
+    22, 26,         // Head Sides Mid
+    29, 33,         // Head Sides Low
+    36, 37, 38, 39, 40 // Jaw
+];
+
+const robotIdle = [
+    ...robotBase,
+    16, 18,         // Eyes
+    30, 31, 32      // Mouth (Straight)
+];
+
+const robotBlink = [
+    ...robotBase,
+    30, 31, 32      // Mouth (Straight), No Eyes
+];
+
+const robotTalk = [
+    ...robotBase,
+    16, 18,         // Eyes
+    31, 38          // Mouth (Open/Round)
+];
+
+const robotScan = [
+    ...robotBase,
+    15, 19,         // Eyes look sides (Wide)
+    30, 31, 32      // Mouth (Straight)
+];
+
+// The sequence: Idle -> Blink -> Idle -> Talk -> Scan -> Idle
+const robot = [
+    robotIdle, robotIdle, robotIdle, 
+    robotBlink, 
+    robotIdle, 
+    robotTalk, robotIdle, robotTalk, 
+    robotScan, robotScan, 
+    robotIdle
+];
+
+// Add this to your sequence array:
+// { frames: robot, repeat: 2 }
 
 
 // Define the full sequence
@@ -126,7 +172,7 @@ const sequence = [
     { frames: processing, repeat: 1 },   // "Calculating"
     { frames: catAnimation, repeat: 2 }, // "The AI Cat"
     { frames: invaderAnimation, repeat: 4 }, // "Gaming/GPU"
-    { frames: rain, repeat: 3 },         // "Data Stream"
+    { frames: robot, repeat: 3 },         // "Data Stream"
     { frames: heart, repeat: 2 },        // "System Health"
     { frames: searching, repeat: 2 },    // "Searching"
     { frames: heartbit, repeat: 2 },     // "Heartbeat"
