@@ -1491,7 +1491,7 @@ export default function SimulatorPage() {
               variant="c"
               layout="left"
               aside="motif"
-              animation="math"
+              animation="rain"
             >
               <EstimationMethodologyInline />
             </LandingSection>
