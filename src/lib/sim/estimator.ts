@@ -1,7 +1,7 @@
 // src/lib/sim/estimator.ts
 import { BENCHMARKS, GPU_SPECS, MODEL_SPECS, type BenchmarkPoint } from "@/data/simulatorDataset";
 
-export type Precision = "fp16" | "int8";
+export type Precision = "fp16" | "int8" | "int4";
 export type WorkloadMode = "single" | "throughput";
 
 export type EstimateInput = {
@@ -48,10 +48,13 @@ function validateVRAM(
   // - weights scale with params and bytes/param
   // - KV-cache scales with params and context
   // - overhead accounts for framework + fragmentation
-  const bytesPerParam = precision === "fp16" ? 2.0 : 1.0; // treat INT8 as 8-bit-ish bucket
+  const bytesPerParam = precision === "fp16" ? 2.0 : precision === "int8" ? 1.0 : 0.5;
   const weightsGB = model.paramsB * bytesPerParam;
   // KV-cache is highly implementation-dependent; keep conservative so we warn early.
-  const kvGB = model.paramsB * (context / 4096) * (precision === "fp16" ? 0.8 : 0.6);
+  const kvGB =
+    model.paramsB *
+    (context / 4096) *
+    (precision === "fp16" ? 0.8 : precision === "int8" ? 0.6 : 0.5);
   const overheadGB = Math.max(2, weightsGB * 0.25);
   const required = weightsGB + kvGB + overheadGB;
 
@@ -148,8 +151,9 @@ function estimateFromSpecs(input: EstimateInput) {
   else if (gpu.architecture === "Ada") speed *= 1.00;
   else if (gpu.architecture === "Ampere") speed *= 0.90;
 
-  // INT8 bucket: typical speedup but not 6x for everything.
+  // Quantization: typical speedup but keep conservative.
   if (input.precision === "int8") speed *= 1.35;
+  if (input.precision === "int4") speed *= 1.55;
 
   if (input.mode === "throughput") {
     // Throughput mode increases tokens/sec but sublinearly.
