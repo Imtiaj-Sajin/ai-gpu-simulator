@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { motion } from 'framer-motion';
 import { HeaderDotAnimation } from "@/components/simulator/HeaderDotAnimation";
+import { Star } from '@solar-icons/react';
 
 import {
   Zap,
@@ -30,7 +31,7 @@ import {
   LayoutGrid,
   Map,
   Users,
-  Star,
+  // Star,
   ChevronDown,
   LayoutTemplate,
   Filter,
@@ -929,7 +930,10 @@ export default function SimulatorPage() {
                 </svg>
                 <div className="flex -space-x-0.5">
                   {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} size={12} className="fill-black text-black" />
+                    <Star  weight="Bold" size={12} color='#091419' />
+                  ))}
+                  {[5].map((s) => (
+                    <Star  weight="BoldDuotone" size={12} color='#091419' />
                   ))}
                 </div>
               </div>
