@@ -1,3 +1,4 @@
+// src\components\animator\HeaderDotAnimation.tsx
 "use client";
 
 import { useState } from "react";

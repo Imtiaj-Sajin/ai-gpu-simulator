@@ -20,7 +20,7 @@ import { ArrowRight, Cpu, Database, ExternalLink, Gauge, Info, ShieldCheck } fro
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { motion } from 'framer-motion';
-import { HeaderDotAnimation } from "@/components/simulator/HeaderDotAnimation";
+import { HeaderDotAnimation } from "@/components/animator/HeaderDotAnimation";
 import { Star } from '@solar-icons/react';
 
 import {
@@ -45,7 +45,7 @@ import {
   Hash,
   Download
 } from 'lucide-react';
-import { SimulatingStatus } from "./SimulatingStatus";
+import { SimulatingStatus } from "../animator/SimulatingStatus";
 
 type SectionVariant = "a" | "b" | "c" | "d";
 type AsideKind = "none" | "motif" | "image-a" | "image-b" | "image-c";

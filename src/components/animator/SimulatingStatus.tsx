@@ -1,3 +1,4 @@
+// src\components\animator\SimulatingStatus.tsx
 import { DotFlow, DotFlowProps } from "@/components/ui/dot-flow";
 
 // --- Animation Data ---
