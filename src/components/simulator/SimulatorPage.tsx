@@ -908,7 +908,7 @@ export default function SimulatorPage() {
                   ))}
                 </div>
               </div>
-              <span>4.9 rating <span className="text-gray-400 font-normal">Based on 300k Users</span></span>
+              <span>4.9 rating <span className="text-gray-400 font-normal">Based on 1 User</span></span>
             </div>
           </motion.div>
           {/* Browser Mockup with Simulator Tool */}
