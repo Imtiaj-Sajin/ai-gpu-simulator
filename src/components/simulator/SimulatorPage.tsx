@@ -22,6 +22,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { motion } from 'framer-motion';
 import { HeaderDotAnimation } from "@/components/animator/HeaderDotAnimation";
 import { Star } from '@solar-icons/react';
+import { SectionAnimator, type AnimationType } from "@/components/animator/SectionAnimator";
 
 import {
   Zap,
@@ -89,6 +90,7 @@ function LandingSection({
   variant,
   layout = "left",
   aside = "motif",
+  animation,
   children,
 }: {
   id?: string;
@@ -99,6 +101,7 @@ function LandingSection({
   variant: SectionVariant;
   layout?: "left" | "right";
   aside?: AsideKind;
+  animation?: AnimationType;
   children: ReactNode;
 }) {
 // Update this logic block inside LandingSection function:
@@ -131,6 +134,15 @@ function LandingSection({
         >
           <div className={cn(hasAsideImage ? layout === "right" && "lg:order-2" : "mx-auto w-full")}>
             <SectionShell variant={variant} className="panel-card">
+
+                          {/* --- 3. ADD THE ANIMATOR HERE --- */}
+              {animation && (
+                <div className="absolute top-6 right-6 hidden md:block">
+                  <SectionAnimator type={animation} />
+                </div>
+              )}
+              {/* ------------------------------- */}
+
               <header className="mx-auto   text-left">
                 {eyebrow ? (
                   <div className="text-xs font-medium uppercase tracking-[0.22em] text-gray-500">{eyebrow}</div>
@@ -1403,6 +1415,7 @@ export default function SimulatorPage() {
               variant="a"
               layout="left"
               aside="motif"
+              animation="process"
             >
               <HowItWorksInline
                 selectedGpuName={selectedGpu?.name}
@@ -1418,6 +1431,7 @@ export default function SimulatorPage() {
               variant="b"
               layout="right"
               aside="motif"
+              animation="math"
             >
               <FormulasInline precision={precision} context={context} estimate={estimate} />
             </LandingSection>
@@ -1429,6 +1443,7 @@ export default function SimulatorPage() {
               variant="c"
               layout="left"
               aside="image-a"
+              animation="chip"
             >
               <GpuSpecsTableInline selectedGpuId={gpuId} />
             </LandingSection>
@@ -1440,6 +1455,7 @@ export default function SimulatorPage() {
               variant="d"
               layout="right"
               aside="image-b"
+              animation="neural"
             >
               <ModelSpecsTableInline selectedModelId={modelId} />
             </LandingSection>
@@ -1451,6 +1467,7 @@ export default function SimulatorPage() {
               variant="a"
               layout="left"
               aside="image-c"
+              animation="chart"
             >
               <BenchmarksTableInline selectedGpuId={gpuId} selectedModelId={modelId} />
             </LandingSection>
@@ -1462,6 +1479,7 @@ export default function SimulatorPage() {
               variant="b"
               layout="right"
               aside="motif"
+              animation="scan"
             >
               <PerformanceBenchmarksInline />
             </LandingSection>
@@ -1473,6 +1491,7 @@ export default function SimulatorPage() {
               variant="c"
               layout="left"
               aside="motif"
+              animation="math"
             >
               <EstimationMethodologyInline />
             </LandingSection>
