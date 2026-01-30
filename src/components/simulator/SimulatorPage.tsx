@@ -20,6 +20,8 @@ import { ArrowRight, Cpu, Database, ExternalLink, Gauge, Info, ShieldCheck } fro
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { motion } from 'framer-motion';
+import { HeaderDotAnimation } from "@/components/simulator/HeaderDotAnimation";
+
 import {
   Zap,
   Search,
@@ -42,6 +44,7 @@ import {
   Hash,
   Download
 } from 'lucide-react';
+import { SimulatingStatus } from "./SimulatingStatus";
 
 type SectionVariant = "a" | "b" | "c" | "d";
 type AsideKind = "none" | "motif" | "image-a" | "image-b";
@@ -867,15 +870,28 @@ export default function SimulatorPage() {
             <span className="text-pink-600 font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-purple-600">10+</span>
             <span>Benchmarks Used Daily</span>
           </motion.div>
-          {/* Headlines */}
-          <motion.h1
+{/* Headlines */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-[64px] font-bold tracking-tight text-[#111] mb-6 leading-[1.1]"
+            className="flex flex-col items-center mb-6 text-center"
           >
-            AI vs GPU <br /> Performance Simulator
-          </motion.h1>
+            {/* Row 1: Animation + "AI vs GPU" */}
+            <div className="flex items-center justify-center gap-4 md:gap-5">
+              <div className="relative md:top-1">
+                <HeaderDotAnimation />
+              </div>
+              <h1 className="text-4xl md:text-[64px] font-bold tracking-tight text-[#111] leading-[1.1]">
+                AI vs GPU
+              </h1>
+            </div>
+
+            {/* Row 2: "Performance Simulator" */}
+            <h1 className="text-4xl md:text-[64px] font-bold tracking-tight text-[#111] leading-[1.1]">
+              Performance Simulator
+            </h1>
+          </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -891,7 +907,9 @@ export default function SimulatorPage() {
             transition={{ delay: 0.3 }}
             className="flex flex-col items-center gap-6"
           >
-<button className="relative h-12 overflow-hidden rounded-xl bg-neutral-950 px-5 py-2.5 text-white transition-all duration-300 hover:bg-neutral-800 hover:ring-2 hover:ring-neutral-800 hover:ring-offset-2"><span className="relative">Start Simulating</span></button>
+{/* <button className="relative h-12 overflow-hidden rounded-xl bg-neutral-950 px-5 py-2.5 text-white transition-all duration-300 hover:bg-neutral-800 hover:ring-2 hover:ring-neutral-800 hover:ring-offset-2"><span className="relative">Start Simulating</span></button> */}
+                       <SimulatingStatus />
+
             <div className="flex items-center gap-2 text-[13px] font-medium text-gray-700">
               <div className="flex items-center gap-1.5">
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
