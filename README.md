@@ -1,86 +1,96 @@
 # AI GPU Simulator
 
-🌐 Live Demo: https://aigpusim.vercel.app/  
-🔗 Public Repo: https://github.com/Imtiaj-Sajin/ai-gpu-simulator  
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)  
+[![Open Source](https://img.shields.io/badge/Open%20Source-Yes-black.svg)]()  
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)]()  
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()  
 
----
+Live: https://aigpusim.vercel.app/  
+Repo: https://github.com/Imtiaj-Sajin/ai-gpu-simulator  
 
-## Why This Project Exists
+
+
+
+## Why This Exists
 
 When we were planning to run LLMs locally, the biggest question was simple:
 
-> **"Which GPU will actually give me the speed I need?"**
+"Which GPU will actually give me the speed I need?"
 
-There were plenty of articles, scattered benchmarks, and spec sheets — but no single tool to simulate performance before investing in expensive hardware.
+There were articles, random benchmark screenshots, spec sheets everywhere... but no single place to simulate performance before spending serious money on hardware.
 
-So I built one.
+So I built this.
 
----
+Not as a hype tool.  
+Not to show unrealistic token numbers.  
 
-## What is AI GPU Simulator?
-
-AI GPU Simulator is a fully open-source project designed to estimate LLM inference performance across different GPUs.
-
-The goal is transparency — you can verify the simulator’s algorithms, logic, assumptions, and data sources yourself.
-
-No hype numbers.  
-No unrealistic token speeds.  
-Just practical, conservative estimates.
-
----
-
-## How It Works (High-Level)
-
-The simulator combines:
-
-✅ GPU specifications  
-✅ Model specs  
-✅ Real-world benchmark data  
-✅ Conservative estimation formulas  
-
-to help answer:
-
-👉 Will the model fit in VRAM?  
-👉 How fast will it decode?  
-👉 What is the time to first token?  
-👉 How long will generation take?
-
-All calculations update dynamically based on your configuration.
-
----
-
-## Project Goal
-
-To make GPU decision-making easier for developers, researchers, and teams running LLMs locally — removing guesswork before spending thousands on hardware.
+Just something practical that developers can actually use before making GPU decisions.
 
 
 
-## Open Source & Contribution
 
-This is a **fully open-source project** because accuracy matters.
+## What This Is
 
-If you:
+AI GPU Simulator is a fully open-source project that estimates LLM inference performance across GPUs using:
 
-- enjoy working with AI infrastructure  
-- have benchmark data  
-- want to improve estimation methods  
-- spot incorrect assumptions  
-- or simply want to make this tool better  
+* real benchmark data when available  
+* conservative spec-based estimation when benchmarks are missing  
+* transparent formulas  
+* verifiable assumptions  
 
-👉 You are very welcome to contribute.
+You are free to inspect the logic, question it, and improve it.
 
-Let’s build something the AI community can rely on.
+Accuracy matters here.
 
 
 
-## Future Direction
 
-The focus right now is simple:
+## Core Features
 
-**Accuracy > Features**
+* VRAM fit check (weights + KV cache + overhead)
+* Decode speed estimation
+* Time to first token calculation (TTFT)
+* Total generation time
+* Quantization-aware simulation
+* Context-length impact
+* Dynamic configuration
+* Benchmark-first methodology
+* Batch Size / Concurrency
+* 
 
-As the dataset grows and the simulator matures, the vision is to make this a trusted performance reference for local AI workloads.
+No magic numbers. No guessing.
+
+
+## Contributing
+
+If someone in the similar mind you're welcome. Please focus on accuracies first(first priority. Then you can add more features/LLM-GPU models/specs etc.. 
+
+### How To Contribute
+
+1. Fork the repo  
+2. Create a feature branch  
+3. Make your changes  
+4. Open a PR  
+
+If you are adding benchmarks, always include the source.
+
+Transparency > everything.
+
+
+## Open Source
+
+This project is fully open because the logic should be inspectable by everone. So that people can judge before trust!
+
+If this simulator helps you, consider starring the repo.  
+It helps more builders discover it.
 
 
 
-⭐ If you find this useful, consider giving the repo a star!
+
+## Final Note
+
+I built this because I needed it.
+
+If you have ever struggled to estimate LLM performance before buying a GPU, this is for you.
+
+
