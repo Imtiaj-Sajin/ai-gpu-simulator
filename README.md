@@ -89,7 +89,7 @@ It helps more builders discover it.
 
 ## Final Note
 
-I built this because I needed it.
+Maybe it could help guessing the experience before investing your money on a power hungry (GPU) device!! ^_^ 
 
 If you have ever struggled to estimate LLM performance before buying a GPU, this is for you.
 
