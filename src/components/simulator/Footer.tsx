@@ -64,10 +64,7 @@ export function Footer() {
               AI × GPU Simulator
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed">
-              Empower your AI research with our comprehensive <strong>GPU Benchmarks</strong> and <strong>VRAM Calculator</strong>. 
-              Analyze <span className="text-gray-700 font-medium">Prefill Speed (TTFT)</span>, estimate <span className="text-gray-700 font-medium">Decode Throughput</span>, 
-              and calculate <span className="text-gray-700 font-medium">Memory Bandwidth</span> requirements. 
-              Access our curated <strong>Model Dataset</strong> and <strong>LLM Formulas</strong> to optimize your inference infrastructure.
+                This interactive LLM inference tool helps you simulate token generation speed, VRAM usage, and GPU performance for different language models. You can test token generation speeds in real time based on GPU models, analyze TTFT and decode throughput, and estimate memory bandwidth to better plan before buying power hungry GPU.
             </p>
           </div>
 
