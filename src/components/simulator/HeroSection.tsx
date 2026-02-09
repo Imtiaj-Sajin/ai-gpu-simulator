@@ -803,7 +803,7 @@ export function HeroSection({
                   </div>
 
                   {/* Terminal / Live Output */}
-                  <div className="bg-[#1e1e1e] rounded-xl shadow-lg overflow-hidden flex flex-col h-[400px] border border-gray-800">
+                  <div className="bg-[#1e1e1e] rounded-xl shadow-lg overflow-hidden flex flex-col h-[450px] border border-gray-800">
                     <div className="h-9 bg-[#2d2d2d] flex items-center px-4 gap-2 border-b border-gray-700 shrink-0 justify-between">
                       <div className="flex gap-2">
                         <div className="w-2.5 h-2.5 rounded-full bg-gray-500" />
@@ -852,7 +852,7 @@ export function HeroSection({
                       <h4 className="text-xs font-semibold text-gray-900 mb-1">Assumptions</h4>
                       <p className="text-xs text-gray-600">{estimate.rationale}</p>
                       <p className="text-[11px] text-gray-400 mt-2">
-                        This is a simulation based on public benchmarks + estimation. Real results vary by framework,
+                        This is a simulation based on public benchmarks + GPU Specs & Model wise dynamic calculations. <br /> Real results may vary by framework,
                         quantization, KV-cache, drivers, and prompt shape.
                       </p>
                     </div>

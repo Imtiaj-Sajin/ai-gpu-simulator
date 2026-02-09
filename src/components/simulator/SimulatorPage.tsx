@@ -83,7 +83,7 @@ function Footer() {
 }
 
 export default function SimulatorPage() {
-  const [gpuId, setGpuId] = useState<string>("rtx-4090");
+  const [gpuId, setGpuId] = useState<string>("rtx-5090");
   const [modelId, setModelId] = useState<string>("llama-3-1-8b");
   const [inputTokens, setInputTokens] = useState<number>(512);
   const [outputTokens, setOutputTokens] = useState<number>(256);
