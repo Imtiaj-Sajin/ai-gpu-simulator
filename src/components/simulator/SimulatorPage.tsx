@@ -6,6 +6,17 @@ import { estimatePerformance, type Precision, type WorkloadMode } from "@/lib/si
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { HeroSection } from "./HeroSection";
 import { LandingSections } from "./LandingSections";
+import { motion } from "framer-motion";
+import { 
+  Github, 
+  Globe, 
+  Mail, 
+  Briefcase, 
+  Cpu, 
+  Zap, 
+  BarChart3, 
+  ArrowUpRight 
+} from "lucide-react";
 
 // --- Background Component (Fixed: Tighter Corners & Clean Center) ---
 const Background = () => {
@@ -53,7 +64,7 @@ const Background = () => {
           <div key={i} className="flex-1" style={{ backgroundColor: color }} />
         ))}
       </div>
-      {/* ===== CORNER-ONLY NOISE (UNCHANGED, BUT BALANCED) ===== */}
+      {/* ===== CORNER-ONLY NOISE ===== */}
       <div
         className="absolute inset-0 opacity-[0.12] mix-blend-overlay"
         style={{
@@ -70,12 +81,131 @@ const Background = () => {
   );
 };
 
+// --- New Animated & SEO Friendly Footer ---
 function Footer() {
+  const socialLinks = [
+    { 
+      icon: Github, 
+      href: "https://github.com/Imtiaj-Sajin", 
+      label: "GitHub",
+      color: "hover:text-black hover:bg-black/5" 
+    },
+    { 
+      icon: Globe, 
+      href: "https://imtiaj-sajin.github.io/", 
+      label: "Portfolio",
+      color: "hover:text-blue-600 hover:bg-blue-50"
+    },
+    { 
+      icon: Briefcase, 
+      href: "https://www.fiverr.com/imtiaj_sajin/", 
+      label: "Fiverr",
+      color: "hover:text-green-600 hover:bg-green-50"
+    },
+    { 
+      icon: Mail, 
+      href: "mailto:imtiajsajin@gmail.com", 
+      label: "Email",
+      color: "hover:text-red-600 hover:bg-red-50"
+    },
+  ];
+
   return (
-    <footer className="relative z-10 border-t border-gray-200 bg-white/50 backdrop-blur-sm">
-      <div className="mx-auto max-w-7xl px-4 py-6">
-        <div className="text-center text-sm text-gray-600">
-          © 2025 AI × GPU Simulator · Built with precision
+    <footer className="relative z-10 pt-16 pb-8 border-t border-gray-200/60 bg-white/60 backdrop-blur-xl">
+      {/* Decorative Dot Pattern Overlay */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+           style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '24px 24px' }} 
+      />
+
+      <div className="mx-auto max-w-7xl px-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+          
+          {/* Brand Column */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 font-bold text-lg tracking-tight text-gray-900 select-none">
+              <div className="p-1.5 bg-black rounded-lg text-white">
+                <Cpu className="w-4 h-4" />
+              </div>
+              <span>AI x GPU Sim</span>
+            </div>
+            <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
+              Simulate LLM inference speeds, estimate VRAM usage, and compare GPU benchmarks in real-time.
+              Built for researchers and AI engineers.
+            </p>
+          </div>
+
+          {/* Quick Links (SEO) */}
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-4 text-sm uppercase tracking-wider">Resources</h3>
+            <ul className="space-y-2.5">
+              {[
+                { label: 'GPU Benchmarks', href: '#' },
+                { label: 'LLM Formulas', href: '#' },
+                { label: 'VRAM Calculator', href: '#' },
+                { label: 'Model Dataset', href: '#' }
+              ].map((item) => (
+                <li key={item.label}>
+                  <a href={item.href} className="text-sm text-gray-500 hover:text-black transition-colors flex items-center group">
+                    {item.label}
+                    <ArrowUpRight className="w-3 h-3 ml-1 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Features (SEO Keywords) */}
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-4 text-sm uppercase tracking-wider">Capabilities</h3>
+            <ul className="space-y-2.5">
+              {[
+                { label: 'Prefill Speed (TTFT)', icon: Zap },
+                { label: 'Decode Throughput', icon: BarChart3 },
+                { label: 'Memory Bandwidth', icon: Cpu },
+              ].map((item) => (
+                <li key={item.label} className="flex items-center text-sm text-gray-500">
+                  <item.icon className="w-3.5 h-3.5 mr-2 text-gray-400" />
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Developer / Connect */}
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-4 text-sm uppercase tracking-wider">Developer</h3>
+            <div className="flex flex-wrap gap-2">
+              {socialLinks.map((link) => (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.label}
+                  className={`p-2.5 rounded-full bg-white border border-gray-200 text-gray-500 transition-all shadow-sm ${link.color}`}
+                  whileHover={{ y: -3, scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <link.icon className="w-4 h-4" />
+                </motion.a>
+              ))}
+            </div>
+            <div className="mt-4 text-xs text-gray-400">
+              Open for collaborations & custom AI development.
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-sm text-gray-500">
+            © {new Date().getFullYear()} Imtiaj Sajin. All rights reserved.
+          </div>
+          <div className="flex gap-6 text-sm font-medium text-gray-500">
+            <a href="#" className="hover:text-black transition-colors">Privacy</a>
+            <a href="#" className="hover:text-black transition-colors">Terms</a>
+            <a href="#" className="hover:text-black transition-colors">Sitemap</a>
+          </div>
         </div>
       </div>
     </footer>
