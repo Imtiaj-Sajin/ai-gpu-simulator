@@ -36,7 +36,7 @@ import {
   RotateCcw,
   Zap,
   ArrowRight,
-  MemoryStick
+  MemoryStick, Github
 } from 'lucide-react';
 
 type RunState = "idle" | "prefill" | "streaming" | "done";
@@ -229,9 +229,17 @@ export function HeroSection({
           ))}
         </div>
         <div className="flex items-center gap-3">
-          <button className="hidden sm:block px-4 py-2 text-[13px] font-semibold border border-gray-300 rounded-lg hover:bg-white hover:shadow-sm transition-all bg-white/30 backdrop-blur-sm">
-            Join Waitlist
-          </button>
+        <a
+          href="https://github.com/Imtiaj-Sajin/ai-gpu-simulator"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-gray-800 border border-gray-200 rounded-md bg-white/70 backdrop-blur hover:bg-white hover:border-gray-300 hover:shadow-sm active:scale-[0.98] transition-all duration-200"
+        >
+          <Github className="w-4 h-4 text-gray-700" />
+          GitHub
+        </a>
+
+
           <button className="px-4 py-2 text-[13px] font-semibold bg-[#111] text-white rounded-lg hover:bg-black transition-all shadow-md shadow-black/10">
             Contact Us
           </button>
