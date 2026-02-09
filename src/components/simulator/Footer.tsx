@@ -2,7 +2,7 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { Github, Globe, Mail, Briefcase } from "lucide-react";
+import { Github, Globe, Mail, Briefcase, Cpu } from "lucide-react";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
 
 export function Footer() {
@@ -34,7 +34,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative w-full border-t border-gray-200 bg-white overflow-hidden">
+    <footer className="relative w-full border-t border-gray-200 bg-white/10 backdrop-blur-sm overflow-hidden">
       
       {/* 1. The Animated Background Grid */}
       <div className="absolute inset-0 z-0 h-[400px] w-full bottom-0">
@@ -54,13 +54,13 @@ export function Footer() {
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
+      <div className="relative z-10 max-w-7xl mx-auto   py-16">
         <div className="flex flex-col md:flex-row justify-between items-center gap-10">
           
           {/* LEFT: SEO Description */}
           <div className="max-w-2xl text-center md:text-left">
             <h3 className="font-bold text-lg text-gray-900 mb-3 flex items-center justify-center md:justify-start gap-2">
-              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"/>
+               <Cpu className="w-5 h-5 fill-current" />
               AI × GPU Simulator
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed">
@@ -95,7 +95,7 @@ export function Footer() {
 
         {/* Bottom copyright line */}
         <div className="mt-12 pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400">
-          <p>© {new Date().getFullYear()} Imtiaj Sajin. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Fully Open-Source Project | Contribution would be appreciated!</p>
           <div className="flex gap-4 mt-2 sm:mt-0">
              <span className="hover:text-gray-600 cursor-pointer">Privacy</span>
              <span className="hover:text-gray-600 cursor-pointer">Terms</span>
