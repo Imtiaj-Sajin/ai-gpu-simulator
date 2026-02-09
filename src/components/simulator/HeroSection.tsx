@@ -240,9 +240,13 @@ export function HeroSection({
         </a>
 
 
-          <button className="px-4 py-2 text-[13px] font-semibold bg-[#111] text-white rounded-lg hover:bg-black transition-all shadow-md shadow-black/10">
+          <a
+            href="https://byteverseit.com/about/#contact"
+            className="px-4 py-2 text-[13px] font-semibold bg-[#111] text-white rounded-lg hover:bg-black transition-all shadow-md shadow-black/10 inline-flex items-center"
+          >
             Contact Us
-          </button>
+          </a>
+
         </div>
       </nav>
 
