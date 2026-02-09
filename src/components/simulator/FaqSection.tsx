@@ -2,12 +2,12 @@
 'use client';
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { DotLoader } from "@/components/ui/dot-loader";
 import { cn } from "@/lib/utils";
 import { Plus, Minus } from "lucide-react";
 
-// --- ANIMATION DATA (Same as before) ---
+// --- ANIMATION DATA ---
 const animQuestion = [[10, 11, 12, 16, 20, 25, 31, 38], [10, 11, 12, 16, 20, 24, 31, 38]];
 const animVram = [[2, 4, 10, 12, 18, 20, 26, 28, 34, 36, 42, 44], [2, 4, 10, 12, 18, 20, 26, 28, 34, 36, 42, 44, 24]];
 const animSpeed = [[22, 16, 10, 4], [22, 16, 10, 4, 3, 5], [29, 23, 17, 11, 10, 12]];
@@ -55,14 +55,12 @@ const faqs = [
 ];
 
 export function FaqSection() {
-    // State is now a string (or null), forcing only one open at a time
-    const [openId, setOpenId] = useState<string | null>("hardware");
+    const [openId, setOpenId] = useState<string | null>(null);
 
     const toggleItem = (id: string) => {
         setOpenId(prev => (prev === id ? null : id));
     };
 
-    // Columns
     const leftColumn = faqs.filter((_, i) => i % 2 === 0);
     const rightColumn = faqs.filter((_, i) => i % 2 !== 0);
 
@@ -130,11 +128,36 @@ export function FaqSection() {
     );
 }
 
-// --- ISOLATED CARD COMPONENT FOR PERFORMANCE & ANIMATION ---
+// --- ISOLATED CARD COMPONENT ---
+
+// Define variants strictly
+const contentVariants: Variants = {
+    open: { 
+        height: "auto", 
+        opacity: 1, 
+        transition: { type: "spring", stiffness: 300, damping: 30 } 
+    },
+    collapsed: { 
+        height: 0, 
+        opacity: 0, 
+        transition: { type: "spring", stiffness: 300, damping: 30 } 
+    }
+};
+
+const iconVariants: Variants = {
+    open: { rotate: 180 },
+    collapsed: { rotate: 0 }
+};
+
+const cornerVariants: Variants = {
+    open: { opacity: 1, scale: 1 },
+    collapsed: { opacity: 0, scale: 0 }
+};
+
 function FaqCard({ faq, isOpen, onToggle }: { faq: typeof faqs[0], isOpen: boolean, onToggle: () => void }) {
     return (
         <motion.div
-            layout // <--- THIS MAKES THE HEIGHT CHANGE SMOOTHLY PUSH NEIGHBORS
+            layout
             onClick={onToggle}
             className={cn(
                 "group cursor-pointer relative overflow-hidden rounded-xl border transition-colors duration-500",
@@ -152,7 +175,7 @@ function FaqCard({ faq, isOpen, onToggle }: { faq: typeof faqs[0], isOpen: boole
                 )}>
                     <DotLoader 
                         frames={faq.icon} 
-                        isPlaying={isOpen} 
+                        isPlaying={true} 
                         repeatCount={-1} 
                         duration={150}
                         className="gap-0.5"
@@ -174,7 +197,8 @@ function FaqCard({ faq, isOpen, onToggle }: { faq: typeof faqs[0], isOpen: boole
                         </h3>
                         {/* Plus/Minus Icon with Rotation */}
                         <motion.div
-                            animate={{ rotate: isOpen ? 180 : 0 }}
+                            variants={iconVariants}
+                            animate={isOpen ? "open" : "collapsed"}
                             transition={{ duration: 0.3 }}
                             className="opacity-50"
                         >
@@ -186,13 +210,13 @@ function FaqCard({ faq, isOpen, onToggle }: { faq: typeof faqs[0], isOpen: boole
                     <AnimatePresence initial={false}>
                         {isOpen && (
                             <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: "auto", opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                key="content"
+                                variants={contentVariants}
+                                initial="collapsed"
+                                animate="open"
+                                exit="collapsed"
                                 className="overflow-hidden"
                             >
-                                {/* We add padding-top here inside the animation to prevent glitchy jumps */}
                                 <div className="pt-3">
                                     <p className="text-xs leading-relaxed text-gray-400 font-mono">
                                         {faq.answer}
@@ -208,9 +232,10 @@ function FaqCard({ faq, isOpen, onToggle }: { faq: typeof faqs[0], isOpen: boole
             <AnimatePresence>
                 {isOpen && (
                     <motion.div 
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0 }}
+                        variants={cornerVariants}
+                        initial="collapsed"
+                        animate="open"
+                        exit="collapsed"
                         className="absolute top-0 right-0 p-2"
                     >
                         <div className="w-1.5 h-1.5 bg-white/20 rounded-full" />
