@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { HeroSection } from "./HeroSection";
 import { LandingSections } from "./LandingSections";
 import { Footer } from "./Footer"; // Import the new Footer
+import { FaqSection } from "./FaqSection";
 
 // --- Background Component ---
 const Background = () => {
@@ -116,7 +117,8 @@ export default function SimulatorPage() {
           context={context}
           estimate={estimate}
         />
-        
+                <FaqSection /> 
+
         <Footer />
       </div>
     </TooltipProvider>

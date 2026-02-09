@@ -1,3 +1,4 @@
+// src\components\ui\dot-loader.tsx
 "use client";
 
 import { ComponentProps, useCallback, useEffect, useRef } from "react";
