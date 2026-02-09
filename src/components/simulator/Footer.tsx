@@ -40,9 +40,9 @@ export function Footer() {
       <div className="absolute inset-0 z-0 h-[400px] w-full bottom-0">
         <FlickeringGrid
           className="relative inset-0 size-full"
-          squareSize={4}
+          squareSize={3}
           gridGap={6}
-          color="#60A5FA" // Light blue flicker
+          color="#efb2b4" // Light blue flicker
           maxOpacity={0.4}
           flickerChance={0.1}
           height={400} // Matches container
