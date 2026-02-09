@@ -4,6 +4,7 @@
 import { motion } from "framer-motion";
 import { Github, Globe, Mail, Briefcase, Cpu } from "lucide-react";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
+import { IconBrandFiverr } from '@tabler/icons-react';
 
 export function Footer() {
   const socialLinks = [
@@ -20,7 +21,7 @@ export function Footer() {
       color: "hover:text-blue-600 hover:bg-blue-50"
     },
     { 
-      icon: Briefcase, 
+      icon: IconBrandFiverr, 
       href: "https://www.fiverr.com/imtiaj_sajin/", 
       label: "Fiverr",
       color: "hover:text-green-600 hover:bg-green-50"
