@@ -94,3 +94,4 @@ Maybe it could help guessing the experience before investing your money on a pow
 If you have ever struggled to estimate LLM performance before buying a GPU, this is for you.
 
 
+<img width="1899" height="904" alt="image" src="https://github.com/user-attachments/assets/856ec799-2153-4715-9f69-c5e33a6856de" />
