@@ -8,12 +8,84 @@ import { cn } from "@/lib/utils";
 import { Plus, Minus } from "lucide-react";
 
 // --- ANIMATION DATA ---
-const animQuestion = [[10, 11, 12, 16, 20, 25, 31, 38], [10, 11, 12, 16, 20, 24, 31, 38]];
-const animVram = [[2, 4, 10, 12, 18, 20, 26, 28, 34, 36, 42, 44], [2, 4, 10, 12, 18, 20, 26, 28, 34, 36, 42, 44, 24]];
-const animSpeed = [[22, 16, 10, 4], [22, 16, 10, 4, 3, 5], [29, 23, 17, 11, 10, 12]];
-const animMoney = [[11, 17, 24, 31, 37, 4, 46], [10, 12, 16, 18, 23, 25, 30, 32, 36, 38, 4, 46]];
-const animScale = [[42, 43, 44, 45, 46], [42, 43, 44, 45, 46, 35, 36, 37, 38, 39], [42, 43, 44, 45, 46, 35, 36, 37, 38, 39, 28, 29, 30, 31, 32]];
-const animTarget = [[0, 6, 42, 48], [0, 6, 42, 48, 16, 18, 30, 32], [0, 6, 42, 48, 16, 18, 30, 32, 24]];
+
+// 1. Hardware: "Pulsing Chip / Radar Ripple" - Expands from a central core outwards
+const animQuestion = [
+    [24], 
+    [24, 16, 17, 18, 23, 25, 30, 31, 32], 
+    [16, 17, 18, 23, 25, 30, 31, 32, 8, 9, 10, 11, 12, 15, 19, 22, 26, 29, 33, 36, 37, 38, 39, 40], 
+    [8, 9, 10, 11, 12, 15, 19, 22, 26, 29, 33, 36, 37, 38, 39, 40, 0, 1, 2, 3, 4, 5, 6, 7, 13, 14, 20, 21, 27, 28, 34, 35, 41, 42, 43, 44, 45, 46, 47, 48], 
+    [8, 9, 10, 11, 12, 15, 19, 22, 26, 29, 33, 36, 37, 38, 39, 40], 
+    [16, 17, 18, 23, 25, 30, 31, 32]
+];
+
+// 2. VRAM: "Filling the Tank" - A U-shaped memory bank that progressively fills up with data
+const tank = [8, 15, 22, 29, 36, 43, 44, 45, 46, 47, 40, 33, 26, 19, 12];
+const animVram = [
+    [...tank],
+    [...tank, 37, 38, 39],
+    [...tank, 37, 38, 39, 30, 31, 32],
+    [...tank, 37, 38, 39, 30, 31, 32, 23, 24, 25],
+    [...tank, 37, 38, 39, 30, 31, 32, 23, 24, 25, 16, 17, 18],
+    [...tank, 37, 38, 39, 30, 31, 32, 23, 24, 25],
+    [...tank, 37, 38, 39, 30, 31, 32],
+    [...tank, 37, 38, 39]
+];
+
+// 3. TTFT Speed: "Bouncing Scanner" - A vertical scanning line sweeping left to right to measure throughput
+const animSpeed = [
+    [0, 7, 14, 21, 28, 35, 42],
+    [1, 8, 15, 22, 29, 36, 43],
+    [2, 9, 16, 23, 30, 37, 44],
+    [3, 10, 17, 24, 31, 38, 45],
+    [4, 11, 18, 25, 32, 39, 46],
+    [5, 12, 19, 26, 33, 40, 47],
+    [6, 13, 20, 27, 34, 41, 48],
+    [5, 12, 19, 26, 33, 40, 47],
+    [4, 11, 18, 25, 32, 39, 46],
+    [3, 10, 17, 24, 31, 38, 45],
+    [2, 9, 16, 23, 30, 37, 44],
+    [1, 8, 15, 22, 29, 36, 43]
+];
+
+// 4. Quantization: "Compression" - Shrinks a giant 7x7 box down into a tiny dense 1x1 core
+const animMoney = [
+    [0, 1, 2, 3, 4, 5, 6, 7, 13, 14, 20, 21, 27, 28, 34, 35, 41, 42, 43, 44, 45, 46, 47, 48], // 7x7 outer
+    [8, 9, 10, 11, 12, 15, 19, 22, 26, 29, 33, 36, 37, 38, 39, 40], // 5x5 outer
+    [16, 17, 18, 23, 25, 30, 31, 32], // 3x3 outer
+    [24], // 1x1 dense center
+    [16, 17, 18, 23, 25, 30, 31, 32],
+    [8, 9, 10, 11, 12, 15, 19, 22, 26, 29, 33, 36, 37, 38, 39, 40]
+];
+
+// 5. Accuracy: "Target Lock" - A sci-fi crosshair that snaps and locks into the center
+const animTarget = [
+    [24], 
+    [24, 17, 23, 25, 31], 
+    [24, 10, 22, 26, 38], 
+    [24, 3, 21, 27, 45, 0, 6, 42, 48], // Locked (Corners pop)
+    [24, 3, 21, 27, 45, 0, 6, 42, 48, 8, 12, 36, 40], // Double Locked
+    [24, 3, 21, 27, 45, 0, 6, 42, 48], 
+    [24, 10, 22, 26, 38], 
+    [24, 17, 23, 25, 31] 
+];
+
+// 6. Multi-GPU: "Linking Blocks" - Shows 1 GPU, adds up to 4, then bridges them with an NVLink cross
+const gpu1 = [8, 9, 15, 16];     // Top-Left
+const gpu2 = [11, 12, 18, 19];   // Top-Right
+const gpu3 = [29, 30, 36, 37];   // Bottom-Left
+const gpu4 = [32, 33, 39, 40];   // Bottom-Right
+const nvlink = [10, 17, 24, 31, 38, 22, 23, 25, 26]; // Bridge connector
+const animScale = [
+    [...gpu1],
+    [...gpu1, ...gpu2],
+    [...gpu1, ...gpu2, ...gpu3],
+    [...gpu1, ...gpu2, ...gpu3, ...gpu4],
+    [...gpu1, ...gpu2, ...gpu3, ...gpu4, ...nvlink], // All 4 GPUs connect!
+    [...gpu1, ...gpu2, ...gpu3, ...gpu4],
+    [...gpu1, ...gpu2, ...gpu3],
+    [...gpu1, ...gpu2]
+];
 
 const faqs = [
     {
