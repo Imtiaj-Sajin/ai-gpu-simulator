@@ -132,26 +132,37 @@ export default function SimulatorPage() {
 
 /**
  * Keyword-rich, crawlable content block.
- * Targets long-tail queries competitors currently rank for
- * (e.g. "best GPU for Llama 70B", "VRAM for Mixtral", "RTX 5090 tokens per second").
- * Renders as a real HTML article — no JS gating — so Googlebot sees it at first paint.
+ * Collapsed by default for a clean UI — uses native <details> so the full
+ * text is still in the DOM and indexed by Googlebot, ChatGPT, Perplexity, etc.
+ * Google has publicly confirmed content inside <details> is fully indexed.
  */
 function SeoContent() {
   return (
     <section
       aria-labelledby="seo-guide-heading"
-      className="relative z-10 mx-auto max-w-5xl px-4 pb-24 text-gray-700"
+      className="relative z-10 mx-auto max-w-7xl px-4 pb-16 text-gray-700"
     >
-      <article className="prose prose-sm md:prose-base max-w-none prose-headings:text-gray-900 prose-a:text-pink-600">
-        <header className="mb-8 border-t border-gray-200 pt-10">
-          <p className="text-[10px] font-mono font-medium tracking-widest uppercase text-gray-500">
-            Guide
-          </p>
-          <h2 id="seo-guide-heading" className="mt-2 text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
-            Choosing the right GPU for local LLM inference in 2026
-          </h2>
-        </header>
+      <details className="group rounded-2xl border border-gray-200 bg-white/60 backdrop-blur-sm shadow-sm transition-all open:shadow-md">
+        <summary
+          className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-5 py-4 hover:bg-gray-50/80 [&::-webkit-details-marker]:hidden"
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-mono font-medium tracking-widest uppercase text-gray-500">
+              Guide
+            </span>
+            <h2 id="seo-guide-heading" className="text-base md:text-lg font-semibold tracking-tight text-gray-900">
+              Choosing the right GPU for local LLM inference in 2026
+            </h2>
+          </div>
+          <span
+            aria-hidden="true"
+            className="shrink-0 rounded-full border border-gray-200 px-2 py-0.5 text-xs text-gray-500 transition-transform group-open:rotate-180"
+          >
+            ▾
+          </span>
+        </summary>
 
+        <article className="prose prose-sm md:prose-base max-w-none px-5 pb-6 pt-2 prose-headings:text-gray-900 prose-a:text-pink-600">
         <p>
           Picking the right GPU for running large language models locally is less about raw compute
           and more about <strong>memory bandwidth</strong> and <strong>VRAM capacity</strong>. Token
@@ -224,7 +235,8 @@ function SeoContent() {
           Contributions and corrections are welcome on{" "}
           <a href="https://github.com/Imtiaj-Sajin/ai-gpu-simulator" rel="noopener noreferrer">GitHub</a>.
         </p>
-      </article>
+        </article>
+      </details>
     </section>
   );
 }

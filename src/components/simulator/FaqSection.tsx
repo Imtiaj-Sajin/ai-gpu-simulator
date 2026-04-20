@@ -137,7 +137,7 @@ export function FaqSection() {
     const rightColumn = faqs.filter((_, i) => i % 2 !== 0);
 
     return (
-        <section className="relative z-10 py-24 px-4 mx-auto max-w-5xl" id="faq">
+        <section className="relative z-10 py-24 px-4 mx-auto max-w-7xl" id="faq">
             
             {/* Header */}
             <div className="flex flex-col items-center text-center mb-16 space-y-4">
