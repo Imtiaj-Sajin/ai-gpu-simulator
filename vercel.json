@@ -48,6 +48,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/((?!api|assets|landing|favicon.ico|favicon3.ico|robots.txt|sitemap.xml|llms.txt|placeholder.svg).*)", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
