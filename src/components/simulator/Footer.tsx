@@ -2,6 +2,7 @@
 'use client';
 
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Github, Globe, Mail, Briefcase, Cpu } from "lucide-react";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import { IconBrandFiverr } from '@tabler/icons-react';
@@ -95,8 +96,8 @@ export function Footer() {
         <div className="mt-12 pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400">
           <p>© {new Date().getFullYear()} Fully Open-Source Project | Contribution would be appreciated!</p>
           <div className="flex gap-4 mt-2 sm:mt-0">
-             <span className="hover:text-gray-600 cursor-pointer">Privacy</span>
-             <span className="hover:text-gray-600 cursor-pointer">Terms</span>
+             <Link to="/privacy" className="hover:text-gray-600 transition-colors">Privacy</Link>
+             <Link to="/terms" className="hover:text-gray-600 transition-colors">Terms</Link>
           </div>
         </div>
       </div>

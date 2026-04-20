@@ -80,4 +80,18 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://aigpusim.vercel.app/privacy</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://aigpusim.vercel.app/terms</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
 </urlset>
