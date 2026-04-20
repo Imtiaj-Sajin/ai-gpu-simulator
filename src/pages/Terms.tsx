@@ -1,4 +1,5 @@
 import { LegalPage, type LegalSection } from "@/components/legal/LegalPage";
+import { storySection } from "@/components/legal/storySection";
 
 const URL = "https://aigpusim.vercel.app/terms";
 const UPDATED = "2026-04-20";
@@ -159,12 +160,18 @@ const SECTIONS: LegalSection[] = [
       </p>
     ),
   },
+  storySection,
   {
     title: "Contact",
     body: (
       <p>
         Questions about these Terms? Email{" "}
-        <a href="mailto:imtiajsajin@gmail.com">imtiajsajin@gmail.com</a> or open an issue on the{" "}
+        <a href="mailto:imtiajsajin@gmail.com">imtiajsajin@gmail.com</a>, reach out on{" "}
+        <a
+          href="https://www.linkedin.com/in/imtiaj-sajin/"
+          target="_blank"
+          rel="author noopener noreferrer"
+        >LinkedIn</a>, or open an issue on the{" "}
         <a href="https://github.com/Imtiaj-Sajin/ai-gpu-simulator" rel="noopener noreferrer">
           GitHub repository
         </a>.
