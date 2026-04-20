@@ -96,6 +96,7 @@ export function Footer() {
         <div className="mt-12 pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400">
           <p>© {new Date().getFullYear()} Fully Open-Source Project | Contribution would be appreciated!</p>
           <div className="flex gap-4 mt-2 sm:mt-0">
+              <Link to="https://chatsby.co" className="hover:text-gray-600 transition-colors">chatsby.co</Link>
              <Link to="/privacy" className="hover:text-gray-600 transition-colors">Privacy</Link>
              <Link to="/terms" className="hover:text-gray-600 transition-colors">Terms</Link>
           </div>

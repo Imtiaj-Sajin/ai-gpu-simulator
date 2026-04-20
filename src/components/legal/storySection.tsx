@@ -22,6 +22,14 @@ export const storySection: LegalSection = {
         one.
       </p>
       <p>
+        Alongside this, I also build{" "}
+        <a href="https://chatsby.co" target="_blank" rel="noopener noreferrer">chatsby.co</a> — an
+        AI customer-support agent that integrates into a website, tracks visitor engagement, and
+        surfaces leads based on what each visitor looks at most. Shipping real AI products like
+        that is what pulled me into LLM inference cost and speed questions in the first place, and
+        this simulator is where those answers live.
+      </p>
+      <p>
         I collected and analysed as much as I could from public articles, blog posts, model
         cards, and official data from NVIDIA, Meta, Mistral, Qwen, vLLM, and TechPowerUp. The
         simulator then runs that data through a dynamic, benchmark-first estimator to answer the
