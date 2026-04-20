@@ -271,16 +271,19 @@ export function HeroSection({
           transition={{ delay: 0.1 }}
           className="flex flex-col items-center mb-6 text-center"
         >
-          <div className="flex items-center justify-center gap-4 md:gap-5">
-            <div className="relative md:top-1">
-              <HeaderDotAnimation />
-            </div>
-            <h1 className="text-4xl md:text-[64px] font-bold tracking-tight text-[#111] leading-[1.1]">
-              AI vs GPU
-            </h1>
-          </div>
-          <h1 className="text-4xl md:text-[64px] font-bold tracking-tight text-[#111] leading-[1.1]">
-            Performance Simulator
+          {/* Single semantic H1 (SEO best practice) styled as two visual lines */}
+          <h1 className="text-4xl md:text-[64px] font-bold tracking-tight text-[#111] leading-[1.1] flex flex-col items-center">
+            <span className="flex items-center justify-center gap-4 md:gap-5">
+              <span className="relative md:top-1" aria-hidden="true">
+                <HeaderDotAnimation />
+              </span>
+              <span>AI vs GPU</span>
+            </span>
+            <span>Performance Simulator</span>
+            {/* Accessible, keyword-rich sub-heading for crawlers / screen readers */}
+            <span className="sr-only">
+              {" "}— LLM VRAM, Tokens per Second, TTFT & Inference Speed Calculator for RTX 5090, RTX 4090, H100, A100 and Llama, Qwen, Mixtral, DeepSeek.
+            </span>
           </h1>
         </motion.div>
 
@@ -288,9 +291,9 @@ export function HeroSection({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-lg text-gray-500 mb-8 max-w-xl mx-auto leading-relaxed"
+          className="text-lg text-gray-500 mb-8 max-w-2xl mx-auto leading-relaxed"
         >
-          Estimate inference speed for LLMs on different hardware.
+          Estimate LLM inference speed, VRAM usage, tokens per second and time-to-first-token on NVIDIA GPUs — Llama 3, Qwen 2.5, Mixtral &amp; DeepSeek on RTX 5090, RTX 4090, H100, A100 and more.
         </motion.p>
 
         {/* CTA */}

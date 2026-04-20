@@ -67,15 +67,31 @@ function LandingSection({
   
   const asideNode = (() => {
     if (!hasAsideImage) return null;
-    
+
     let src = "";
-    if (aside === "image-a") src = "/landing/section-aside2.jpg";
-    else if (aside === "image-b") src = "/landing/section-aside5.png";
-    else if (aside === "image-c") src = "/landing/section5.jpg";
+    let altText = "";
+    if (aside === "image-a") {
+      src = "/landing/section-aside2.jpg";
+      altText = "NVIDIA GPU specifications visualization — VRAM capacity, memory bandwidth and FP16 TFLOPs for the AI GPU Simulator dataset";
+    } else if (aside === "image-b") {
+      src = "/landing/section-aside5.png";
+      altText = "LLM model specs chart — parameter counts and context windows for Llama 3, Qwen 2.5, Mixtral and DeepSeek";
+    } else if (aside === "image-c") {
+      src = "/landing/section5.jpg";
+      altText = "LLM inference benchmark chart — tokens per second for RTX 4090, RTX 5090, H100 and A100";
+    }
 
     return (
       <div className="mt-6 overflow-hidden rounded-2xl border bg-white/50 p-2 backdrop-blur-md">
-        <img src={src} alt="Decorative section visual" className="h-full w-full rounded-xl object-cover" loading="lazy" />
+        <img
+          src={src}
+          alt={altText}
+          width="720"
+          height="540"
+          className="h-full w-full rounded-xl object-cover"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     );
   })();

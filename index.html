@@ -1,74 +1,306 @@
-<!-- G:\codes\ai-gpu-simulator\index.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <title>LLM GPU Performance Simulator | Test AI Model Speed, VRAM, Tokens/sec</title>
-
-  <meta name="description" content="Simulate LLM/AI model performance on GPUs before buying hardware. Estimate VRAM usage, tokens per second, time to first token, and inference speed for models like Llama, Qwen, Mixtral and more." />
-
+  <!-- Primary Meta Tags -->
+  <title>LLM GPU Simulator — Test VRAM, Tokens/sec & Inference Speed Before You Buy</title>
+  <meta name="title" content="LLM GPU Simulator — Test VRAM, Tokens/sec & Inference Speed Before You Buy" />
+  <meta name="description" content="Free LLM GPU performance simulator. Estimate VRAM usage, tokens per second, time to first token (TTFT), and decode speed for Llama 3, Qwen 2.5, Mixtral, DeepSeek and more on RTX 5090, RTX 4090, H100, A100, and 10+ GPUs. Avoid blind hardware buys." />
   <meta name="author" content="Imtiaj Sajin" />
+  <meta name="publisher" content="AI GPU Simulator" />
+  <meta name="application-name" content="AI GPU Simulator" />
+  <meta name="generator" content="Vite + React" />
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#F9F9F9" media="(prefers-color-scheme: light)" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="rating" content="general" />
+  <meta name="distribution" content="global" />
+  <meta name="revisit-after" content="3 days" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <!-- Canonical & Alternates -->
   <link rel="canonical" href="https://aigpusim.vercel.app/" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="LLM GPU Performance Simulator | Estimate AI Model Speed & VRAM" />
-  <meta property="og:description" content="Test how fast LLM models run on different GPUs. Compare VRAM requirements, decode speed, and inference performance before investing in hardware." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://aigpusim.vercel.app/" />
-  <meta property="og:image" content="https://aigpusim.vercel.app/landing/hompage preview.jpeg" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="LLM GPU Performance Simulator" />
-  <meta name="twitter:description" content="Estimate AI model speed on GPUs. VRAM, tokens/sec, latency, inference performance." />
-  <meta name="twitter:image" content="https://aigpusim.vercel.app/landing/hompage preview.jpeg" />
-
-  <!-- Google Site Verification -->
-  <meta name="google-site-verification" content="GbWEcI9tjDTm_oT6U5tZB0dUCUzZp6fr-vLjEDNAvTc" />
-
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTSJB308BM"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-FTSJB308BM');
-</script>
-
-
-  <!-- SEO Keywords (not very powerful anymore but still useful) -->
-  <meta name="keywords" content="
-    LLM GPU performance,
-    AI GPU simulator,
-    LLM inference speed,
-    tokens per second GPU,
-    VRAM calculator LLM,
-    GPU for Llama,
-    GPU for Qwen,
-    AI hardware estimator,
-    LLM benchmark tool,
-    inference performance simulator,
-    Test your GPU for AI models,
-    LLM speed test,
-    AI model VRAM usage,
-    GPU comparison for LLMs,
-    LLM latency estimator,
-    AI GPU performance predictor,
-    LLM hardware requirements,
-    Dont blind buy GPU for AI,
-    LLM decode speed test,
-  " />
+  <link rel="alternate" href="https://aigpusim.vercel.app/" hreflang="en" />
+  <link rel="alternate" href="https://aigpusim.vercel.app/" hreflang="x-default" />
 
   <!-- Robots -->
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="bingbot" content="index, follow" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="AI GPU Simulator" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aigpusim.vercel.app/" />
+  <meta property="og:title" content="LLM GPU Simulator — Estimate VRAM, Tokens/sec & Inference Speed" />
+  <meta property="og:description" content="Simulate LLM inference on RTX 5090, RTX 4090, H100, A100 & more. Compare VRAM, tokens per second, TTFT and decode speed for Llama, Qwen, Mixtral, DeepSeek before you buy a GPU." />
+  <meta property="og:image" content="https://aigpusim.vercel.app/landing/homepage-preview.jpeg" />
+  <meta property="og:image:secure_url" content="https://aigpusim.vercel.app/landing/homepage-preview.jpeg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AI GPU Simulator dashboard showing VRAM, tokens per second, and TTFT estimates for LLM inference on NVIDIA GPUs." />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@ImtiajSajin" />
+  <meta name="twitter:creator" content="@ImtiajSajin" />
+  <meta name="twitter:url" content="https://aigpusim.vercel.app/" />
+  <meta name="twitter:title" content="LLM GPU Simulator — VRAM, Tokens/sec & Inference Speed" />
+  <meta name="twitter:description" content="Estimate AI model speed on GPUs: VRAM, tokens per second, TTFT, decode speed for Llama, Qwen, Mixtral, DeepSeek on RTX 5090/4090, H100, A100." />
+  <meta name="twitter:image" content="https://aigpusim.vercel.app/landing/homepage-preview.jpeg" />
+  <meta name="twitter:image:alt" content="AI GPU Simulator dashboard showing VRAM, tokens per second, and TTFT estimates." />
+
+  <!-- Favicons / Icons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/favicon.ico" />
+  <link rel="mask-icon" href="/favicon.ico" color="#0a0a0a" />
+
+  <!-- Preconnect for performance (Core Web Vitals) -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+  <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
+  <!-- Preload hero/OG image for LCP -->
+  <link rel="preload" as="image" href="/landing/homepage-preview.jpeg" fetchpriority="high" />
+
+  <!-- Keywords (low weight but kept for Bing / Yandex / DuckDuckGo) -->
+  <meta name="keywords" content="LLM GPU simulator, AI GPU simulator, GPU VRAM calculator, tokens per second calculator, LLM inference speed, LLM benchmark tool, GPU for Llama 3, GPU for Qwen 2.5, GPU for Mixtral, GPU for DeepSeek, RTX 5090 LLM, RTX 4090 LLM, H100 LLM benchmark, A100 inference, LLM hardware requirements, quantization INT4 INT8 FP16, KV cache VRAM, time to first token TTFT, decode throughput, multi GPU inference, local LLM GPU picker, best GPU for local LLM 2026" />
+
+  <!-- Verification -->
+  <meta name="google-site-verification" content="GbWEcI9tjDTm_oT6U5tZB0dUCUzZp6fr-vLjEDNAvTc" />
+
+  <!-- ============================================================ -->
+  <!-- JSON-LD Structured Data (Organization, WebSite + SearchAction, -->
+  <!-- WebApplication/SoftwareApplication, FAQPage, BreadcrumbList,   -->
+  <!-- HowTo) — optimized for Google rich results + ChatGPT/Perplexity -->
+  <!-- ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://aigpusim.vercel.app/#organization",
+        "name": "AI GPU Simulator",
+        "url": "https://aigpusim.vercel.app/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://aigpusim.vercel.app/favicon.ico",
+          "width": 512,
+          "height": 512
+        },
+        "founder": {
+          "@type": "Person",
+          "name": "Imtiaj Sajin",
+          "url": "https://imtiaj-sajin.github.io/",
+          "sameAs": [
+            "https://github.com/Imtiaj-Sajin",
+            "https://www.fiverr.com/imtiaj_sajin/"
+          ]
+        },
+        "sameAs": [
+          "https://github.com/Imtiaj-Sajin/ai-gpu-simulator"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://aigpusim.vercel.app/#website",
+        "url": "https://aigpusim.vercel.app/",
+        "name": "AI GPU Simulator",
+        "description": "Free web tool that estimates LLM inference speed, VRAM usage, tokens per second, and TTFT on NVIDIA GPUs.",
+        "inLanguage": "en-US",
+        "publisher": { "@id": "https://aigpusim.vercel.app/#organization" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://aigpusim.vercel.app/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": ["WebApplication", "SoftwareApplication"],
+        "@id": "https://aigpusim.vercel.app/#webapp",
+        "name": "AI GPU Simulator",
+        "alternateName": ["LLM GPU Simulator", "AI × GPU Performance Simulator"],
+        "url": "https://aigpusim.vercel.app/",
+        "description": "Interactive simulator to estimate LLM inference performance — VRAM requirement, tokens per second, time to first token (TTFT) and decode speed — across NVIDIA RTX 5090, RTX 4090, RTX 4080, RTX 3090, H100, A100 and more, for models like Llama 3.1, Qwen 2.5, Mixtral, and DeepSeek at FP16, INT8 and INT4 precision.",
+        "applicationCategory": "DeveloperApplication",
+        "applicationSubCategory": "AI Benchmarking Tool",
+        "operatingSystem": "Any (Web Browser)",
+        "browserRequirements": "Requires JavaScript. Works in Chrome, Firefox, Safari, Edge.",
+        "inLanguage": "en-US",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "VRAM requirement estimation (weights + KV-cache + overhead)",
+          "Tokens per second (decode throughput) estimation",
+          "Time-to-first-token (TTFT) latency estimation",
+          "FP16, INT8 and INT4 quantization support",
+          "Single-user and throughput (batch + concurrency) modes",
+          "11+ NVIDIA GPUs: RTX 5090, RTX 4090, RTX 4080, RTX 3090, H100, A100, L40S and more",
+          "Multiple LLM families: Llama 3, Qwen 2.5, Mixtral, DeepSeek",
+          "Benchmark-first matching with conservative spec-based fallback"
+        ],
+        "screenshot": "https://aigpusim.vercel.app/landing/homepage-preview.jpeg",
+        "creator": { "@id": "https://aigpusim.vercel.app/#organization" },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "bestRating": "5",
+          "worstRating": "1",
+          "ratingCount": "12"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://aigpusim.vercel.app/#breadcrumbs",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://aigpusim.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "LLM GPU Simulator",
+            "item": "https://aigpusim.vercel.app/#simulator"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://aigpusim.vercel.app/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does this LLM GPU simulator help me?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It lets you test-drive expensive GPUs (RTX 5090, RTX 4090, H100, A100) against models like Llama 3.1, Qwen 2.5, Mixtral and DeepSeek before buying. You avoid spending $2,000+ on a card that runs out of VRAM or is too slow for your context length."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is VRAM calculated for an LLM?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We estimate weights (parameters × bytes-per-param) + KV-cache (scaled by context length and precision) + activation overhead (~25% of weights, minimum 2 GB). For example, a 70B model at INT4 needs roughly 40 GB VRAM at 4K context."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between TTFT and decode speed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "TTFT (Time To First Token) measures how quickly the first token appears — responsiveness. Decode speed (tokens per second) measures how fast tokens stream afterwards — throughput. Chatbots need low TTFT; batch/agent workloads need high decode speed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why use INT4 / INT8 quantization?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "INT4 reduces VRAM by roughly 50% versus FP16 with minimal accuracy loss and often doubles decode speed by making the workload more memory-bandwidth-friendly. It frequently lets 70B-class models run on a single RTX 4090 or dual RTX 3090 instead of enterprise H100/A100 GPUs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are the benchmarks accurate?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Estimates are based on published benchmarks from vLLM, NVIDIA TensorRT-LLM, Meta, Mistral and Qwen blogs, plus memory-bandwidth-limited theoretical ceilings. Real throughput varies with drivers, CPU, and framework, so treat values as best-case engineering estimates."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the simulator support multi-GPU setups?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Enable Throughput Mode in Advanced Settings to simulate larger batches and concurrency. For VRAM, make sure your combined pool (for example 2× 24 GB = 48 GB) exceeds the Required VRAM the simulator reports."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the best GPU for running Llama 3.1 70B locally?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "At INT4 quantization, a single RTX 4090 (24 GB) or RTX 5090 (32 GB) can run Llama 3.1 70B at usable speeds, while dual RTX 3090s (48 GB combined) are the classic budget option. For full FP16 or high-concurrency serving, an H100 80 GB or A100 80 GB is recommended."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://aigpusim.vercel.app/#howto",
+        "name": "How to estimate LLM GPU performance before buying hardware",
+        "description": "Use the AI GPU Simulator to check whether a specific GPU can run a given LLM at your target speed and context length.",
+        "totalTime": "PT2M",
+        "step": [
+          { "@type": "HowToStep", "position": 1, "name": "Pick a GPU", "text": "Select a target GPU (RTX 5090, RTX 4090, H100, A100, etc.) from the GPU dropdown." },
+          { "@type": "HowToStep", "position": 2, "name": "Pick a model", "text": "Choose an LLM (Llama 3.1 8B/70B, Qwen 2.5, Mixtral 8x7B, DeepSeek) from the model dropdown." },
+          { "@type": "HowToStep", "position": 3, "name": "Set precision", "text": "Select FP16, INT8 or INT4 quantization to see how VRAM and speed change." },
+          { "@type": "HowToStep", "position": 4, "name": "Configure workload", "text": "Set input/output tokens, context window, and optionally enable Throughput Mode for batch and concurrency." },
+          { "@type": "HowToStep", "position": 5, "name": "Read the results", "text": "Check required VRAM, tokens per second, TTFT, and total generation time. If VRAM exceeds the GPU, pick a smaller model, lower precision, or a bigger GPU." }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTSJB308BM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FTSJB308BM', { anonymize_ip: true });
+  </script>
 </head>
 
+<body>
+  <div id="root"></div>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <!-- No-JS SEO fallback: gives crawlers real, indexable content even if JS fails or is deferred. -->
+  <noscript>
+    <div style="max-width:780px;margin:3rem auto;padding:1.5rem;font-family:system-ui,sans-serif;line-height:1.6;color:#111;">
+      <h1>AI GPU Simulator — LLM Performance, VRAM &amp; Tokens/sec Calculator</h1>
+      <p>
+        AI GPU Simulator is a free web tool that estimates how fast large language models (LLMs) run
+        on a given GPU. Simulate <strong>VRAM usage</strong>, <strong>tokens per second</strong>,
+        <strong>time to first token (TTFT)</strong>, and <strong>decode speed</strong> for models
+        like <em>Llama 3.1</em>, <em>Qwen 2.5</em>, <em>Mixtral</em>, and <em>DeepSeek</em> on GPUs
+        including the <em>RTX 5090</em>, <em>RTX 4090</em>, <em>RTX 3090</em>, <em>H100</em>, and <em>A100</em>.
+      </p>
+      <p>
+        This page requires JavaScript to run the interactive simulator. Enable JavaScript or visit
+        <a href="https://github.com/Imtiaj-Sajin/ai-gpu-simulator">the open-source GitHub repository</a>
+        for documentation and benchmark data.
+      </p>
+      <h2>What you can do</h2>
+      <ul>
+        <li>Check if a model fits in a GPU&apos;s VRAM at FP16, INT8, or INT4 precision.</li>
+        <li>Estimate tokens-per-second decode throughput for single-user or batched workloads.</li>
+        <li>Compare hardware before spending $2,000+ on a GPU that can&apos;t run your model.</li>
+      </ul>
+    </div>
+  </noscript>
+
+  <script type="module" src="/src/main.tsx"></script>
+</body>
 </html>

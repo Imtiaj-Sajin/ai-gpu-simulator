@@ -85,10 +85,13 @@ export default function SimulatorPage() {
 
   return (
     <TooltipProvider delayDuration={200}>
-      <div className="min-h-screen bg-[#F9F9F9] font-sans text-gray-900 relative overflow-hidden selection:bg-pink-200/50">
+      <main
+        id="simulator"
+        className="min-h-screen bg-[#F9F9F9] font-sans text-gray-900 relative overflow-hidden selection:bg-pink-200/50"
+      >
         <Background />
-        
-        <HeroSection 
+
+        <HeroSection
           gpuId={gpuId}
           setGpuId={setGpuId}
           modelId={modelId}
@@ -117,10 +120,111 @@ export default function SimulatorPage() {
           context={context}
           estimate={estimate}
         />
-                <FaqSection /> 
+                <FaqSection />
+
+        <SeoContent />
 
         <Footer />
-      </div>
+      </main>
     </TooltipProvider>
+  );
+}
+
+/**
+ * Keyword-rich, crawlable content block.
+ * Targets long-tail queries competitors currently rank for
+ * (e.g. "best GPU for Llama 70B", "VRAM for Mixtral", "RTX 5090 tokens per second").
+ * Renders as a real HTML article — no JS gating — so Googlebot sees it at first paint.
+ */
+function SeoContent() {
+  return (
+    <section
+      aria-labelledby="seo-guide-heading"
+      className="relative z-10 mx-auto max-w-5xl px-4 pb-24 text-gray-700"
+    >
+      <article className="prose prose-sm md:prose-base max-w-none prose-headings:text-gray-900 prose-a:text-pink-600">
+        <header className="mb-8 border-t border-gray-200 pt-10">
+          <p className="text-[10px] font-mono font-medium tracking-widest uppercase text-gray-500">
+            Guide
+          </p>
+          <h2 id="seo-guide-heading" className="mt-2 text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
+            Choosing the right GPU for local LLM inference in 2026
+          </h2>
+        </header>
+
+        <p>
+          Picking the right GPU for running large language models locally is less about raw compute
+          and more about <strong>memory bandwidth</strong> and <strong>VRAM capacity</strong>. Token
+          generation is memory-bound: the GPU spends most of its time streaming model weights from
+          VRAM, not doing math. That is why an RTX 4090 at INT4 quantization can outrun an A100 FP16
+          on small models — and why an H100 80&nbsp;GB still wins for large-batch serving.
+        </p>
+
+        <h3>How much VRAM do you actually need?</h3>
+        <p>
+          Our simulator estimates VRAM as <em>weights + KV-cache + activation overhead</em>. A rough
+          rule of thumb for a 4&nbsp;K context window:
+        </p>
+        <ul>
+          <li><strong>Llama 3.1 8B</strong> — ~16&nbsp;GB FP16, ~9&nbsp;GB INT8, ~6&nbsp;GB INT4.</li>
+          <li><strong>Mistral 7B / Qwen 2.5 7B</strong> — ~14&nbsp;GB FP16, ~8&nbsp;GB INT8, ~5&nbsp;GB INT4.</li>
+          <li><strong>Mixtral 8x7B</strong> — ~90&nbsp;GB FP16, ~48&nbsp;GB INT8, ~26&nbsp;GB INT4.</li>
+          <li><strong>Llama 3.1 70B</strong> — ~140&nbsp;GB FP16, ~75&nbsp;GB INT8, ~40&nbsp;GB INT4.</li>
+          <li><strong>Qwen 2.5 72B</strong> — similar to Llama 70B.</li>
+        </ul>
+        <p>
+          Long contexts (32&nbsp;K, 64&nbsp;K, 128&nbsp;K) add significant KV-cache pressure — sometimes
+          more than the weights themselves — so the simulator also recalculates VRAM as you raise the
+          context window.
+        </p>
+
+        <h3>Best GPUs for local LLMs at each budget tier</h3>
+        <ul>
+          <li><strong>$800–$1,200 (used)</strong> — RTX 3090 (24&nbsp;GB). Still the sweet spot for
+            running 30B-class models at INT4 on a single card.</li>
+          <li><strong>$1,600–$2,000 (new)</strong> — RTX 4090 (24&nbsp;GB). Faster memory bandwidth,
+            higher FP16 TFLOPs, better for batched serving.</li>
+          <li><strong>$2,500+ (new)</strong> — RTX 5090 (32&nbsp;GB). Roughly 72% faster decode than
+            the 4090 in our benchmark dataset for 7B-class models at INT4.</li>
+          <li><strong>Dual-GPU builds</strong> — 2× RTX 3090 (48&nbsp;GB combined) or 2× RTX 4090
+            (48&nbsp;GB combined) — enable 70B-class models at INT4 without datacenter hardware.</li>
+          <li><strong>Datacenter</strong> — H100 SXM 80&nbsp;GB for production serving; A100 80&nbsp;GB
+            for cost-sensitive training/inference; L40S for balanced deployments.</li>
+        </ul>
+
+        <h3>Quantization is the highest-leverage knob</h3>
+        <p>
+          Moving from FP16 to INT4 (via GPTQ or AWQ) typically cuts VRAM in half and can
+          <strong> double or triple decode throughput</strong> because the model becomes easier to
+          stream out of VRAM. Accuracy loss on well-calibrated INT4 weights is small — usually a
+          fraction of a point on standard benchmarks — and for most chat/coding workloads it is
+          imperceptible.
+        </p>
+
+        <h3>TTFT vs tokens/sec — which matters?</h3>
+        <p>
+          <strong>Time-to-first-token (TTFT)</strong> is prefill latency — how long before the first
+          token appears. It is compute-bound and scales with your prompt length. <strong>Decode
+          tokens/sec</strong> is the streaming rate after that. Chat UX is dominated by TTFT; batch
+          summarization and agent loops are dominated by decode throughput. Our simulator reports both
+          so you can tune the right one.
+        </p>
+
+        <h3>Methodology &amp; data sources</h3>
+        <p>
+          Benchmarks in this tool come from vLLM release notes, NVIDIA TensorRT-LLM benchmarks, Meta
+          Llama, Mistral and Qwen model cards, TechPowerUp GPU specs, and reproducible community
+          studies. Where a datapoint is missing, we scale from the closest match using a conservative
+          memory-bandwidth-limited model, then clamp with size-based ceilings to avoid unrealistic
+          numbers. Confidence is surfaced per result as <em>high</em>, <em>medium</em>, or <em>low</em>.
+        </p>
+
+        <p className="text-xs text-gray-500">
+          This page is maintained by <a href="https://imtiaj-sajin.github.io/" rel="author">Imtiaj Sajin</a>.
+          Contributions and corrections are welcome on{" "}
+          <a href="https://github.com/Imtiaj-Sajin/ai-gpu-simulator" rel="noopener noreferrer">GitHub</a>.
+        </p>
+      </article>
+    </section>
   );
 }
